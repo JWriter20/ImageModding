@@ -1,4 +1,4 @@
-package src.Model.ImageClasses;
+package Model.ImageClasses;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -54,7 +54,7 @@ public abstract class AbstractImage implements Image {
 
   @Override
   public void exportImage(String imageName) {
-    File output = new File("./out/production/Assignment5/res/" + imageName + ".ppm");
+    File output = new File("./res/" + imageName + ".ppm");
     Appendable toWrite = new StringBuilder();
     try {
       String header = String.format("P3\n%d %d\n255\n",

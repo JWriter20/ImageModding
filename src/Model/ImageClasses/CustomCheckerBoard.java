@@ -1,4 +1,4 @@
-package src.Model.ImageClasses;
+package Model.ImageClasses;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

@@ -1,6 +1,6 @@
-package src.Model.Modifications;
+package Model.Modifications;
 
-import src.Model.ImageClasses.Image;
+import Model.ImageClasses.Image;
 
 /**
  * Interface that will be implemented in order to modify images. Any class that is used to

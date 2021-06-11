@@ -1,4 +1,4 @@
-package src.Model.Modifications;
+package Model.Modifications;
 
 /**
  * Class used to apply a reddish brown tone, known as sepia, to an image.

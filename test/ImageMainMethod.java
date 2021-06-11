@@ -1,20 +1,16 @@
-package test;
-
-
 import java.awt.Color;
 
-import java.io.*;
-import src.Model.ImageClasses.CustomCheckerBoard;
-import src.Model.ImageClasses.Image;
-import src.Model.ImageClasses.PPMImage;
-import src.Model.ImageClasses.RainbowImage;
-import src.Model.Modifications.*;
+import Model.ImageClasses.CustomCheckerBoard;
+import Model.ImageClasses.Image;
+import Model.ImageClasses.PPMImage;
+import Model.ImageClasses.RainbowImage;
+import Model.Modifications.*;
 
 public class ImageMainMethod {
   public static void main(String[] args) {
     Image koala = new PPMImage("./Pictures/Koala.ppm");
     Image snail = new PPMImage("./Pictures/snail.ppm");
-    Image stars = new PPMImage("./Pictures/stars.ppm");
+    Image graph = new PPMImage("./Pictures/graph.ppm");
     Image checkerboard = new CustomCheckerBoard(3, 3, 3,
         new Color(255, 10, 10), new Color(89, 0, 26));
     Image checkerboard2 = new CustomCheckerBoard(25, 20, 20,
@@ -27,35 +23,34 @@ public class ImageMainMethod {
 
 
     blur.apply(snail);
-    blur.apply(stars);
-    stars.exportImage("BlurredStars");
+    blur.apply(graph);
+    graph.exportImage("BlurredGraph");
     snail.exportImage("BlurredSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
-    stars = new PPMImage("./Pictures/stars.ppm");
+    graph = new PPMImage("./Pictures/graph.ppm");
     sharpen.apply(snail);
-    sharpen.apply(stars);
-    stars.exportImage("SharpStars");
+    sharpen.apply(graph);
+    graph.exportImage("SharpGraph");
     snail.exportImage("SharpSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
-    stars = new PPMImage("./Pictures/stars.ppm");
+    graph = new PPMImage("./Pictures/graph.ppm");
     sepia.apply(snail);
-    sepia.apply(stars);
-    stars.exportImage("SepiaStars");
+    sepia.apply(graph);
+    graph.exportImage("SepiaGraph");
     snail.exportImage("SepiaSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
-    stars = new PPMImage("./Pictures/stars.ppm");
+    graph = new PPMImage("./Pictures/graph.ppm");
     greyscale.apply(snail);
-    greyscale.apply(stars);
-    stars.exportImage("GreyscaleStars");
+    greyscale.apply(graph);
+    graph.exportImage("GreyscaleGraph");
     snail.exportImage("GreyscaleSnail");
 
 
 
     //koala.exportImage("SharpKoala");
     //koala.displayImage();
-    /*sepia.apply(koala);
-    koala.displayImage();
-    checkerboard.displayImage();
+    //sepia.apply(koala);
+    /*checkerboard.displayImage();
     checkerboard.displayImage();
     sepia.apply(checkerboard);
     checkerboard.displayImage();

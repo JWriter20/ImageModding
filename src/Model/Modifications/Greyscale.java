@@ -1,4 +1,4 @@
-package src.Model.Modifications;
+package Model.Modifications;
 
 /**
  * Class used to apply a greyscale affect to an image. The resulting image will only contain

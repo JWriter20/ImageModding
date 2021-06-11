@@ -1,4 +1,4 @@
-package src.Model.ImageClasses;
+package Model.ImageClasses;
 
 /**
  * Represents a .ppm image. This class implements Image so that different modifications can be

@@ -1,4 +1,4 @@
-package src.Model.Modifications;
+package Model.Modifications;
 
 /**
  * Represents a change to an image that makes it more sharp. It increases the contrast in the image

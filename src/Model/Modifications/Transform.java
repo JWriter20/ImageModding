@@ -1,7 +1,7 @@
-package src.Model.Modifications;
+package Model.Modifications;
 
 import java.awt.Color;
-import src.Model.ImageClasses.Image;
+import Model.ImageClasses.Image;
 
 /**
  * Superclass for any classes that intend on performing a color transformation on a picture.

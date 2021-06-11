@@ -1,10 +1,7 @@
-package test;
-
-
 import org.junit.Test;
-import src.Model.ImageClasses.*;
-import src.Model.ImageClasses.Image;
-import src.Model.Modifications.*;
+import Model.ImageClasses.*;
+import Model.ImageClasses.Image;
+import Model.Modifications.*;
 
 import java.awt.*;
 import java.io.IOException;
@@ -416,6 +413,7 @@ public class IModifyImageTests {
   public void testPixelOver255() {
     Image over255Pixel = new CustomCheckerBoard(3, 3, 3,
         new Color(265, 10, 10), new Color(89, 0, 26));
+    over255Pixel.getHeight();
 
   }
 
@@ -423,7 +421,7 @@ public class IModifyImageTests {
   public void testPixelUnder0() {
     Image under0Pixel = new CustomCheckerBoard(3, 3, 3,
         new Color(-20, 10, -1), new Color(-2, 0, 26));
-
+    under0Pixel.getHeight();
   }
 
   @Test
@@ -443,8 +441,9 @@ public class IModifyImageTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void importBadPPM() {
-    String exportName = "non-existance-name";
+    String exportName = "non-existent-name";
     Image savedKoala = new PPMImage("./out/production/Assignment5/res/" + exportName + ".ppm");
+    savedKoala.getHeight();
 
   }
 
