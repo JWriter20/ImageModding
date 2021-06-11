@@ -1,12 +1,26 @@
 import java.awt.Color;
 
-import Model.ImageClasses.CustomCheckerBoard;
-import Model.ImageClasses.Image;
-import Model.ImageClasses.PPMImage;
-import Model.ImageClasses.RainbowImage;
-import Model.Modifications.*;
+import model.imageclasses.CustomCheckerBoard;
+import model.imageclasses.Image;
+import model.imageclasses.PPMImage;
+import model.imageclasses.RainbowImage;
+import model.modifications.Sharpen;
+import model.modifications.Greyscale;
+import model.modifications.Sepia;
+import model.modifications.Blurry;
+import model.modifications.IModifyImage;
 
+
+/**
+ * The class that creates the main method.
+ */
 public class ImageMainMethod {
+
+  /**
+   * Main method used in both testing and to create the photos in the res folder.
+   *
+   * @param args Standard main argument.
+   */
   public static void main(String[] args) {
     Image koala = new PPMImage("./Pictures/Koala.ppm");
     Image snail = new PPMImage("./Pictures/snail.ppm");

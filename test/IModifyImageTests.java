@@ -1,13 +1,23 @@
 import org.junit.Test;
-import Model.ImageClasses.*;
-import Model.ImageClasses.Image;
-import Model.Modifications.*;
+import model.imageclasses.Image;
+import model.imageclasses.PPMImage;
+import model.imageclasses.CustomCheckerBoard;
+import model.imageclasses.RainbowImage;
+import model.imageclasses.AbstractImage;
+import model.modifications.Blurry;
+import model.modifications.Sepia;
+import model.modifications.Greyscale;
+import model.modifications.Sharpen;
+import model.modifications.IModifyImage;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The main testing class that contains all of the individual tests.
+ */
 public class IModifyImageTests {
   Image koala = new PPMImage("./Pictures/Koala.ppm");
   Image checkerboard = new CustomCheckerBoard(3, 3, 3,
@@ -20,7 +30,7 @@ public class IModifyImageTests {
   IModifyImage sharpen = new Sharpen();
   IModifyImage blur = new Blurry();
 
-  public void initData() {
+  private void initData() {
     koala = new PPMImage("./Pictures/Koala.ppm");
     checkerboard = new CustomCheckerBoard(3, 3, 3,
         new Color(255, 10, 10), new Color(89, 0, 26));
