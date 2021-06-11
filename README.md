@@ -2,7 +2,7 @@
 
 ## Image Citations:
 * “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/snail.ascii.ppm. 
-* * “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/sines.ascii.ppm. 
+* “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/sines.ascii.ppm. 
 
 ## Model Design Overview
 
