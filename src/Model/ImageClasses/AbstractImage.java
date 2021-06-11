@@ -7,10 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.io.IOException;
-import java.io.FileOutputStream;
 import java.io.File;
-import java.io.BufferedOutputStream;
-import java.nio.charset.StandardCharsets;
+import java.io.FileWriter;
 
 /**
  * Abstract class that will be extended by any class representing an Image. Many of these
@@ -19,28 +17,30 @@ import java.nio.charset.StandardCharsets;
 public abstract class AbstractImage implements Image {
   BufferedImage img;
 
+
+
   @Override
-  public int getWidth() {
+  public int getWidth() throws IllegalArgumentException {
     return this.img.getWidth();
   }
 
   @Override
-  public int getHeight() {
+  public int getHeight() throws IllegalArgumentException {
     return this.img.getHeight();
   }
 
   @Override
-  public Color getColorAt(int x, int y) {
+  public Color getColorAt(int x, int y) throws IllegalArgumentException {
     return new Color(this.img.getRGB(x, y), true);
   }
 
   @Override
-  public void setColorAt(int x, int y, Color color) {
+  public void setColorAt(int x, int y, Color color) throws IllegalArgumentException {
     this.img.setRGB(x, y, color.getRGB());
   }
 
   @Override
-  public void displayImage() {
+  public void displayImage() throws IllegalArgumentException {
     ImageIcon icon = new ImageIcon(this.img);
     JFrame frame = new JFrame();
     frame.setLayout(new FlowLayout());
@@ -54,27 +54,31 @@ public abstract class AbstractImage implements Image {
 
   @Override
   public void exportImage(String imageName) {
-    File output = new File("./out/production/Assignment5/Pictures/" + imageName + ".ppm");
+    File output = new File("./out/production/Assignment5/res/" + imageName + ".ppm");
+    Appendable toWrite = new StringBuilder();
     try {
-      FileOutputStream fileStream = new FileOutputStream(output, true);
-      BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(output));
-      String header = String.format("P6\n%d %d\n255\n",
+      String header = String.format("P3\n%d %d\n255\n",
           img.getWidth(), img.getHeight());
 
-      out.write(header.getBytes(StandardCharsets.US_ASCII));
+      toWrite.append(header);
 
       for (int y = 0; y < img.getHeight(); y++) {
         for (int x = 0; x < img.getWidth(); x++) {
           Color c = new Color(img.getRGB(x, y));
-          out.write(c.getRed());
-          out.write(c.getGreen());
-          out.write(c.getBlue());
+          toWrite.append("" + c.getRed()).append(" ");
+          toWrite.append("" + c.getGreen()).append(" ");
+          toWrite.append("" + c.getBlue()).append(" ");
         }
       }
-      out.close();
 
+      FileWriter out = new FileWriter(output);
+      out.write(toWrite.toString());
+      out.close();
     } catch (IOException e) {
-      System.out.println(e);
+      throw new IllegalStateException("Writing failed.");
+    }
+    catch (NullPointerException e) {
+      throw new IllegalStateException("Null Img.");
     }
   }
 }

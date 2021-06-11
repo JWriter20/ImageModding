@@ -2,6 +2,7 @@ package src.Model.ImageClasses;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -72,7 +73,7 @@ public class ImageUtil {
   public BufferedImage getBufferedImage(String filename) {
     Scanner sc;
     try {
-      sc = new Scanner(new FileInputStream(filename));
+      sc = new Scanner(new FileReader(filename));
     }
     catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File "+filename+ " not found!");

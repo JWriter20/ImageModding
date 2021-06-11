@@ -32,7 +32,7 @@ public abstract class Filter implements IModifyImage {
     int r = 0;
     int g = 0;
     int b = 0;
-    for (int kernelX = 0; kernelX < kernel[0].length; kernelX++) {
+    for (int kernelX = 0; kernelX < kernel.length; kernelX++) {
       for (int kernelY = 0; kernelY < kernel[0].length; kernelY++) {
         int imgX = kernelX + x - offSet;
         int imgY = kernelY + y - offSet;
