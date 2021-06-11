@@ -1,8 +1,7 @@
 # ImageModing
 
 ## Image Citations:
-* “50 Of The Best Teacher Memes That Will Make You Laugh While Teachers Cry.” Bored Panda, 2019, www.boredpanda.com/funny-teachers-memes/?utm_source=pinterest. 
-* “Oprah.” Imgflip, 2014, imgflip.com/i/94ndb. 
+* “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/ppma.html. 
 
 ## Model Design Overview
 
