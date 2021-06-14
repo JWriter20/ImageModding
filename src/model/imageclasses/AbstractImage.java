@@ -13,33 +13,39 @@ import java.io.FileWriter;
 public abstract class AbstractImage implements Image {
   BufferedImage img;
 
-
-
   @Override
-  public int getWidth() throws IllegalArgumentException {
+  public int getWidth() {
     return this.img.getWidth();
   }
 
   @Override
-  public int getHeight() throws IllegalArgumentException {
+  public int getHeight() {
     return this.img.getHeight();
   }
 
   @Override
   public Color getColorAt(int x, int y) throws IllegalArgumentException {
-    return new Color(this.img.getRGB(x, y), true);
+    try {
+      return new Color(this.img.getRGB(x, y), true);
+    } catch (IndexOutOfBoundsException e) {
+      throw new IllegalArgumentException("The supplied indices are out of bounds.");
+    }
   }
 
   @Override
   public void setColorAt(int x, int y, Color color) throws IllegalArgumentException {
-    this.img.setRGB(x, y, color.getRGB());
+    try {
+      this.img.setRGB(x, y, color.getRGB());
+    } catch (IndexOutOfBoundsException e) {
+      throw new IllegalArgumentException("The supplied indices are out of bounds.");
+    }
   }
 
   @Override
-  public void exportImage(String imageName) {
-    File output = new File("./res/" + imageName + ".ppm");
-    Appendable toWrite = new StringBuilder();
+  public void exportImageAsPPM(String imageName) throws IllegalStateException {
     try {
+      File output = new File("./res/" + imageName + ".ppm");
+      Appendable toWrite = new StringBuilder();
       String header = String.format("P3\n%d %d\n255\n",
           img.getWidth(), img.getHeight());
 

@@ -38,8 +38,8 @@ public interface Image {
   void setColorAt(int x, int y, Color color);
 
   /**
-   * Exports a file containing the image to the out folder. If a file with the same imageName
+   * Exports a file containing the .ppm image to the out folder. If a file with the same imageName
    * already exists the old file will be overridden by the new one.
    */
-  void exportImage(String imageName);
+  void exportImageAsPPM(String imageName);
 }

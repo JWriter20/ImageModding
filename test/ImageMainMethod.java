@@ -38,37 +38,25 @@ public class ImageMainMethod {
 
     blur.apply(snail);
     blur.apply(graph);
-    graph.exportImage("BlurredGraph");
-    snail.exportImage("BlurredSnail");
+    graph.exportImageAsPPM("BlurredGraph");
+    snail.exportImageAsPPM("BlurredSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
     graph = new PPMImage("./Pictures/graph.ppm");
     sharpen.apply(snail);
     sharpen.apply(graph);
-    graph.exportImage("SharpGraph");
-    snail.exportImage("SharpSnail");
+    graph.exportImageAsPPM("SharpGraph");
+    snail.exportImageAsPPM("SharpSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
     graph = new PPMImage("./Pictures/graph.ppm");
     sepia.apply(snail);
     sepia.apply(graph);
-    graph.exportImage("SepiaGraph");
-    snail.exportImage("SepiaSnail");
+    graph.exportImageAsPPM("SepiaGraph");
+    snail.exportImageAsPPM("SepiaSnail");
     snail = new PPMImage("./Pictures/snail.ppm");
     graph = new PPMImage("./Pictures/graph.ppm");
     greyscale.apply(snail);
     greyscale.apply(graph);
-    graph.exportImage("GreyscaleGraph");
-    snail.exportImage("GreyscaleSnail");
-
-
-
-    //koala.exportImage("SharpKoala");
-    //koala.displayImage();
-    //sepia.apply(koala);
-    /*checkerboard.displayImage();
-    checkerboard.displayImage();
-    sepia.apply(checkerboard);
-    checkerboard.displayImage();
-    sepia.apply(rainbow);
-    rainbow.displayImage();*/
+    graph.exportImageAsPPM("GreyscaleGraph");
+    snail.exportImageAsPPM("GreyscaleSnail");
   }
 }
