@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import model.imageclasses.CustomCheckerBoard;
 import model.imageclasses.Image;
@@ -9,19 +12,20 @@ import model.modifications.Greyscale;
 import model.modifications.Sepia;
 import model.modifications.Blurry;
 import model.modifications.IModifyImage;
+import javax.imageio.ImageIO;
 
 
 /**
  * The class that creates the main method.
  */
 public class ImageMainMethod {
-
   /**
    * Main method used in both testing and to create the photos in the res folder.
    *
    * @param args Standard main argument.
    */
   public static void main(String[] args) {
+
     Image koala = new PPMImage("./Pictures/Koala.ppm");
     Image snail = new PPMImage("./Pictures/snail.ppm");
     Image graph = new PPMImage("./Pictures/graph.ppm");
@@ -35,6 +39,7 @@ public class ImageMainMethod {
     IModifyImage sharpen = new Sharpen();
     IModifyImage blur = new Blurry();
 
+    /*
 
     blur.apply(snail);
     blur.apply(graph);
@@ -58,5 +63,7 @@ public class ImageMainMethod {
     greyscale.apply(graph);
     graph.exportImageAsPPM("GreyscaleGraph");
     snail.exportImageAsPPM("GreyscaleSnail");
+
+    */
   }
 }

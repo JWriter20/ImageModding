@@ -42,4 +42,5 @@ public interface Image {
    * already exists the old file will be overridden by the new one.
    */
   void exportImageAsPPM(String imageName);
+
 }

@@ -20,7 +20,9 @@ import static org.junit.Assert.assertEquals;
  * The main testing class that contains all of the individual tests.
  */
 public class IModifyImageTests {
-  Image koala = new PPMImage("./Pictures/Koala.ppm");
+  //Image koala = new PPMImage("./Pictures/Koala.ppm");
+  Image jpeg = new PPMImage("./Pictures/meme.jpeg");
+  Image png = new PPMImage("./Pictures/face.png");
   Image checkerboard = new CustomCheckerBoard(3, 3, 3,
       new Color(255, 10, 10), new Color(89, 0, 26));
   Image checkerboard2 = new CustomCheckerBoard(25, 20, 20,
@@ -33,7 +35,7 @@ public class IModifyImageTests {
   IModifyImage blur = new Blurry();
 
   private void initData() {
-    koala = new PPMImage("./Pictures/Koala.ppm");
+    //koala = new PPMImage("./Pictures/Koala.ppm");
     checkerboard = new CustomCheckerBoard(3, 3, 3,
         new Color(255, 10, 10), new Color(89, 0, 26));
     checkerboard2 = new CustomCheckerBoard(25, 20, 20,

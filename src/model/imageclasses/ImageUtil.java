@@ -1,11 +1,10 @@
 package model.imageclasses;
 
+import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.FileInputStream;
 
 
 /**
@@ -70,7 +69,7 @@ public class ImageUtil {
    * @param filename The path to the file
    * @return A BufferedImage object where each pixel has the RGB value specified in the .ppm file.
    */
-  public BufferedImage getBufferedImage(String filename) {
+  protected BufferedImage getBufferedImageFromPPM(String filename) {
     Scanner sc;
     try {
       sc = new Scanner(new FileReader(filename));
@@ -111,6 +110,18 @@ public class ImageUtil {
     }
     return img;
   }
+
+  protected BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
+    BufferedImage img = null;
+    try {
+      img = ImageIO.read(new File(filename));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Invalid Pathname Inputted");
+    }
+    System.out.println(img);
+    return img;
+  }
+
 
 }
 

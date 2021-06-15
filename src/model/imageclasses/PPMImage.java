@@ -13,6 +13,6 @@ public class PPMImage extends AbstractImage {
    */
   public PPMImage(String path) {
     ImageUtil imgUtil = new ImageUtil();
-    this.img = imgUtil.getBufferedImage(path);
+    this.img = imgUtil.getBufferedImageFromPPM(path);
   }
 }
