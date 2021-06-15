@@ -43,4 +43,8 @@ public interface Image {
    */
   void exportImageAsPPM(String imageName);
 
+  void exportImageAs(String imageName, ImageTypes type);
+
+
+
 }
