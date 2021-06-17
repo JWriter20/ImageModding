@@ -112,12 +112,22 @@ public class ImageUtil {
   }
 
   protected BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
+    String filetarget = filename.substring(filename.lastIndexOf('/') + 1);
+    String filetype = filetarget.substring(filetarget.length() - 5);
+    if (filetarget.length() < 5) {
+      throw new IllegalArgumentException("Bad file ");
+    } else if (!(filetype.contains(".jpeg")
+            || filetype.contains(".jpg")
+            || filetype.contains(".png"))) {
+      throw new IllegalArgumentException("Non-valid file type");
+    }
     BufferedImage img = null;
     try {
       img = ImageIO.read(new File(filename));
     } catch (IOException e) {
       throw new IllegalArgumentException("Invalid Pathname Inputted");
     }
+
     return img;
   }
 

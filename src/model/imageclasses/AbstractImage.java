@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import javax.imageio.ImageIO;
 
 /**
  * Abstract class that will be extended by any class representing an Image. Many of these
@@ -42,9 +43,9 @@ public abstract class AbstractImage implements Image {
   }
 
   @Override
-  public void exportImageAsPPM(String imageName) throws IllegalStateException {
+  public void exportImageAsPPM(String path) throws IllegalStateException {
     try {
-      File output = new File("./res/" + imageName + ".ppm");
+      File output = new File(path);
       Appendable toWrite = new StringBuilder();
       String header = String.format("P3\n%d %d\n255\n",
           img.getWidth(), img.getHeight());
@@ -70,4 +71,32 @@ public abstract class AbstractImage implements Image {
       throw new IllegalStateException("Null Img.");
     }
   }
+
+  @Override
+  public void exportImageAs(String path, ImageTypes type) throws IllegalArgumentException {
+    String imgType = "";
+    switch (type) {
+      case JPG:
+        imgType = "JPG";
+        break;
+      case PNG:
+        imgType = "PNG";
+        break;
+      case PPM:
+        exportImageAsPPM(path);
+        return;
+      default:
+        throw new IllegalArgumentException("Invalid type");
+    }
+
+    File output = new File(path);
+    try {
+      ImageIO.write(img, imgType, output);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Bad IO");
+    }
+  }
+
+
+
 }
