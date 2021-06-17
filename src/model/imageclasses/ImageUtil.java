@@ -118,7 +118,6 @@ public class ImageUtil {
     } catch (IOException e) {
       throw new IllegalArgumentException("Invalid Pathname Inputted");
     }
-    System.out.println(img);
     return img;
   }
 

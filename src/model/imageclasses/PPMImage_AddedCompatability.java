@@ -4,7 +4,7 @@ public class PPMImage_AddedCompatability extends AbstractImage {
     /**
      * Creates a new PPMImage object based on the supplied path to an image.
      *
-     * @param path The path to the .ppm picture.
+     * @param path The path to the .ppm, jpeg, or png picture.
      */
     public PPMImage_AddedCompatability(String path) {
         ImageUtil imgUtil = new ImageUtil();
