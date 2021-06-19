@@ -7,6 +7,5 @@ public interface ImageModel {
     void sepiaImage();
     void grayImage();
     void sharpImage();
-    void addLayer(String name);
-    void bringToFront(String name);
+    void setImage(Image img);
 }

@@ -26,9 +26,9 @@ public class ImageMainMethod {
    */
   public static void main(String[] args) {
 
-    Image koala = new PPMImage("./Pictures/Koala.ppm");
-    Image snail = new PPMImage("./Pictures/snail.ppm");
-    Image graph = new PPMImage("./Pictures/graph.ppm");
+    // Image koala = new PPMImage("./Pictures/Koala.ppm");
+    // Image snail = new PPMImage("./Pictures/snail.ppm");
+    // Image graph = new PPMImage("./Pictures/graph.ppm");
     Image checkerboard = new CustomCheckerBoard(3, 3, 3,
         new Color(255, 10, 10), new Color(89, 0, 26));
     Image checkerboard2 = new CustomCheckerBoard(25, 20, 20,

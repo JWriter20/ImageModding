@@ -1,16 +1,24 @@
 package controller;
 
 
-import model.ImageModel;
+import model.ExportedImage;
+import model.LayeredModel;
+import model.imageclasses.*;
 import view.ImageView;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SimpleImageModController implements ImageModController {
-    ImageModel model;
+    LayeredModel model;
     ImageView view;
 
-    public SimpleImageModController(ImageModel model, ImageView view) {
+    public SimpleImageModController(LayeredModel model, ImageView view) {
         this.model = model;
         this.view = view;
     }
@@ -45,6 +53,42 @@ public class SimpleImageModController implements ImageModController {
     }
 
     public void parseFile() {
+
+    }
+
+    /*
+        Note migrate load and export methods to the controller.
+        Note - possibly make loading and exporting methods private so it can only be
+        accessed through the script.
+     */
+
+    public Layer loadImage(String path) {
+        return new Layer(new LoadedImage(path), "");
+    }
+
+    public MultiImage loadMultiLayeredImage(String pathToTxtFile) {
+        MultiImage multiImage = new MultiLayerImage();
+        Scanner sc;
+        try {
+            sc = new Scanner(new FileReader(pathToTxtFile));
+        }
+        catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("File not found!");
+        }
+
+        while (sc.hasNextLine()) {
+            multiImage.addLayer(loadImage(sc.nextLine()));
+        }
+
+        return multiImage;
+    }
+
+    public void exportImage(String path, ImageTypes type) throws IllegalArgumentException {
+        ExportedImage temp = new ExportedImage(path, type);
+    }
+
+    public void exportMultiLayeredImage(String folderName) {
+
 
     }
 
