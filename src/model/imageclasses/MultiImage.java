@@ -13,4 +13,5 @@ public interface MultiImage {
     void exportMultiLayer(String pathToFolder, ImageTypes type);
 
     void loadMultiLayer();
+
 }

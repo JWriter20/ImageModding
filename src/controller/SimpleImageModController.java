@@ -62,11 +62,13 @@ public class SimpleImageModController implements ImageModController {
         accessed through the script.
      */
 
-    public Layer loadImage(String path) {
-        return new Layer(new LoadedImage(path), "");
+    private Layer loadLayer(String path) {
+        String[] data = path.substring(path.lastIndexOf('/') + 1).split("#");
+
+        return new Layer(new LoadedImage(path), data[0], Boolean.parseBoolean(data[1]));
     }
 
-    public MultiImage loadMultiLayeredImage(String pathToTxtFile) {
+    private MultiImage loadMultiLayeredImage(String pathToTxtFile) {
         MultiImage multiImage = new MultiLayerImage();
         Scanner sc;
         try {
@@ -77,17 +79,17 @@ public class SimpleImageModController implements ImageModController {
         }
 
         while (sc.hasNextLine()) {
-            multiImage.addLayer(loadImage(sc.nextLine()));
+            multiImage.addLayer(loadLayer(sc.nextLine()));
         }
 
         return multiImage;
     }
 
-    public void exportImage(String path, ImageTypes type) throws IllegalArgumentException {
+    private void exportLayer(String path, ImageTypes type) throws IllegalArgumentException {
         ExportedImage temp = new ExportedImage(path, type);
     }
 
-    public void exportMultiLayeredImage(String folderName) {
+    private void exportMultiLayeredImage(String folderName) {
 
 
     }

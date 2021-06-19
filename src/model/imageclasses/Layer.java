@@ -13,6 +13,12 @@ public class Layer {
         this.isVisible = true;
     }
 
+    public Layer(Image img, String name, boolean isVisible) {
+        this.img = img;
+        this.name = name;
+        this.isVisible = isVisible;
+    }
+
     public Layer(String name) {
         this.name = name;
         this.isVisible = true;
@@ -31,8 +37,17 @@ public class Layer {
         mod.apply(this.img);
     }
 
+    public void makeVisible() {
+        this.isVisible = true;
+    }
+
+    public void makeInvisible() {
+        this.isVisible = false;
+    }
+
+
     public void exportLayer(String imgName, ImageTypes type) {
-        this.img.exportImageAs(imgName + "/" + this.name, type);
+        this.img.exportImageAs(imgName + "/" + this.name + "#" + this.isVisible, type);
     }
 
 }
