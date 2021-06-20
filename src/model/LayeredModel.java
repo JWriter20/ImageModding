@@ -2,6 +2,7 @@ package model;
 
 import model.imageclasses.Image;
 import model.imageclasses.ImageTypes;
+import model.imageclasses.Layer;
 
 /**
  * A model that adds support for a multi-layered image. Retains the ability to modify

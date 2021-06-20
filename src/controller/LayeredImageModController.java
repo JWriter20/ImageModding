@@ -97,8 +97,11 @@ public class LayeredImageModController implements ImageModController {
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            multiImage.addLayer(new Layer(loadImage(line),
-                    line.substring(line.lastIndexOf("/") + 1)));
+            String name = line.substring(line.lastIndexOf("/") + 1, line.lastIndexOf("."));
+            System.out.println(name);
+            this.model.addLayer(name);
+            this.model.bringToFront(name);
+            this.model.setFirstLayerImage(loadImage(line));
         }
 
         return multiImage;
@@ -109,7 +112,7 @@ public class LayeredImageModController implements ImageModController {
     }
 
     private void exportMultiLayeredImage(String folderName, ImageTypes type) {
-        String path = "res/" + folderName + "/";
+        String path = folderName + "/";
         this.model.exportMultiImage(path, type);
 
 
@@ -144,7 +147,7 @@ public class LayeredImageModController implements ImageModController {
                 break;
             }
 
-            case "load-multi:": {
+            case "load-multi": {
                 loadMultiLayeredImage(commandParts[1]);
                 break;
             }

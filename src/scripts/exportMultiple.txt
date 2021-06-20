@@ -5,8 +5,6 @@ load face.png
 blur
 save face-blur.ppm
 current second
-load manhattan.ppm
+load meme.jpeg
 sepia
-save manhattan-sepia.jpg
-invisible second
-save manhattan-blur-2.jpg
+save-multi mutliTest

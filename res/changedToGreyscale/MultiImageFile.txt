@@ -1,0 +1,2 @@
+res/changedToGreyscale/first.PNG
+res/changedToGreyscale/second.PNG

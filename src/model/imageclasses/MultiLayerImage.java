@@ -37,6 +37,8 @@ public class MultiLayerImage implements MultiImage {
     @Override
     public void bringToFront(String name) throws IllegalArgumentException {
         for (int i = 0; i < list.size(); i++) {
+            System.out.println(name);
+            System.out.println(list.get(i));
             if (list.get(i).checkName(name)) {
                 list.add(0, list.remove(i));
                 return;
@@ -59,16 +61,28 @@ public class MultiLayerImage implements MultiImage {
     public void exportMultiLayer(String pathToFolder, ImageTypes type) {
         String pathToTextFile = pathToFolder +
                 pathToFolder.substring(pathToFolder.lastIndexOf("/") + 1) + "MultiImageFile.txt";
+
+
+        File dir = new File(pathToFolder);
+        if (!dir.exists()){
+            dir.mkdir();
+        }
+
         try {
-            FileWriter textFile = new FileWriter(pathToTextFile);
+            // pathToFolder - res/mutliTest/
+            // pathToTextFile - res/mutliTest/MultiImageFile.txt
+            FileWriter writer = new FileWriter(pathToTextFile);
+            System.out.println(list.size());
             for (Layer l: list) {
-                l.exportLayer(pathToFolder, type);
-                textFile.append(l.getName()).append("\n");
+                l.exportLayer(pathToFolder + l.getName() + type.toString(), type);
+                writer.append(pathToFolder + l.getName() + type.toString()).append("\n");
+
             }
 
-            textFile.flush();
+            writer.flush();
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("Bad File");
         }
 

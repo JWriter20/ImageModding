@@ -53,6 +53,7 @@ public class ImageMainMethod {
     ImageModController readableController =
             new LayeredImageModController(model, view, new StringReader(input));
     controller.go();
+
     //readableController.go();
 
     //String input2 =

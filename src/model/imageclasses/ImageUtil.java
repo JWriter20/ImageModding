@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -113,7 +114,7 @@ public class ImageUtil {
 
   protected BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
     String filetarget = filename.substring(filename.lastIndexOf('/') + 1);
-    String filetype = filetarget.substring(filetarget.length() - 5);
+    String filetype = filetarget.substring(filetarget.length() - 5).toLowerCase();
     if (filetarget.length() < 5) {
       throw new IllegalArgumentException("Bad file ");
     } else if (!(filetype.contains(".jpeg")
