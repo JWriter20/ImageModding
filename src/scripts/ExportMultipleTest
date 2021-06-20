@@ -1,0 +1,12 @@
+create layer first
+create layer second
+current first
+load face.png
+blur
+save face-blur.ppm
+current second
+load manhattan.ppm
+sepia
+save manhattan-sepia.jpg
+invisible second
+save manhattan-blur-2.jpg

@@ -2,7 +2,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 
+import controller.ImageModController;
+import controller.LayeredImageModController;
+import model.LayeredImageModel;
+import model.LayeredModel;
 import model.imageclasses.CustomCheckerBoard;
 import model.imageclasses.Image;
 import model.imageclasses.PPMImage;
@@ -12,6 +18,9 @@ import model.modifications.Greyscale;
 import model.modifications.Sepia;
 import model.modifications.Blurry;
 import model.modifications.IModifyImage;
+import view.Display;
+import view.ImageView;
+
 import javax.imageio.ImageIO;
 
 
@@ -26,10 +35,48 @@ public class ImageMainMethod {
    */
   public static void main(String[] args) {
 
-    Image koala = new PPMImage("./Pictures/Koala.ppm");
-    Image snail = new PPMImage("./Pictures/snail.ppm");
-    Image graph = new PPMImage("./Pictures/graph.ppm");
-    Image checkerboard = new CustomCheckerBoard(3, 3, 3,
+
+    LayeredModel model = new LayeredImageModel();
+    ImageView view = new Display(System.out);
+    //Tests for the controller
+    ImageModController controller = new LayeredImageModController(model, view,
+            new InputStreamReader(System.in));
+    String input =
+            "m\n" +
+            "create layer first\n" +
+            "current first\n" +
+            "load face.png\n" +
+            "blur\n" +
+            "save face-blur.jpeg\n" +
+            "quit\n";
+
+    ImageModController readableController =
+            new LayeredImageModController(model, view, new StringReader(input));
+    controller.go();
+    //readableController.go();
+
+    //String input2 =
+            //create layer first
+    //create layer second
+    //    current first
+    //    load manhattan.png #load it in layer first
+    //    blur
+    //    save manhattan-blur.ppm
+    //    current second #make another layer, this is topmost and visible
+    //    load manhattan.ppm #load it in layer second
+    //    sepia
+    //    save manhattan-sepia.jpg #save second layer because it is topmost visible
+    //    invisible second #make second layer (topmost) invisible
+    //    save manhattan-blur-2.jpg #save first layer because it is the topmost visible"
+
+
+    //controller.go();
+
+
+    // Image koala = new PPMImage("./Pictures/Koala.ppm");
+    // Image snail = new PPMImage("./Pictures/snail.ppm");
+    // Image graph = new PPMImage("./Pictures/graph.ppm");
+    /*Image checkerboard = new CustomCheckerBoard(3, 3, 3,
         new Color(255, 10, 10), new Color(89, 0, 26));
     Image checkerboard2 = new CustomCheckerBoard(25, 20, 20,
         new Color(26, 255, 9), new Color(255,25,0));
@@ -37,7 +84,7 @@ public class ImageMainMethod {
     IModifyImage greyscale = new Greyscale();
     IModifyImage sepia = new Sepia();
     IModifyImage sharpen = new Sharpen();
-    IModifyImage blur = new Blurry();
+    IModifyImage blur = new Blurry();*/
 
     /*
 

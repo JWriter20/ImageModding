@@ -1,9 +1,5 @@
+import model.imageclasses.*;
 import org.junit.Test;
-import model.imageclasses.Image;
-import model.imageclasses.PPMImage;
-import model.imageclasses.CustomCheckerBoard;
-import model.imageclasses.RainbowImage;
-import model.imageclasses.AbstractImage;
 import model.modifications.Blurry;
 import model.modifications.Sepia;
 import model.modifications.Greyscale;
@@ -21,8 +17,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class IModifyImageTests {
   //Image koala = new PPMImage("./Pictures/Koala.ppm");
-  Image jpeg = new PPMImage("./Pictures/meme.jpeg");
-  Image png = new PPMImage("./Pictures/face.png");
+  Image jpeg = new LoadedImage("./Pictures/meme.jpeg");
+  Image png = new LoadedImage("./Pictures/face.png");
   Image checkerboard = new CustomCheckerBoard(3, 3, 3,
       new Color(255, 10, 10), new Color(89, 0, 26));
   Image checkerboard2 = new CustomCheckerBoard(25, 20, 20,
