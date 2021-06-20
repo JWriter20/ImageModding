@@ -1,44 +1,45 @@
 package model;
 
-import model.imageclasses.Layer;
-import model.imageclasses.MultiImage;
-import model.imageclasses.MultiLayerImage;
+import model.imageclasses.Image;
 import model.modifications.*;
 
+/**
+ * A simple implementation of the ImageModel interface. Provides the ability to modify an
+ * image by calling any of the provided methods, as well as setting the image to a new one
+ * if needed.
+ */
 public class SimpleImageModel implements ImageModel {
-    IModifyImage mod;
-    MultiImage img = new MultiLayerImage();
+    protected IModifyImage mod;
+    private Image img;
+
+    private void applyToType(IModifyImage m) {
+        this.mod = m;
+        this.mod.apply(this.img);
+    }
+
     @Override
     public void blurImage() {
-        this.mod = new Blurry();
-        this.img.applyToFirst(this.mod);
+        applyToType(new Blurry());
     }
 
     @Override
     public void sepiaImage() {
-        this.mod = new Sepia();
-        this.img.applyToFirst(this.mod);
+        applyToType(new Sepia());
     }
 
     @Override
     public void grayImage() {
-        this.mod = new Greyscale();
-        this.img.applyToFirst(this.mod);
+        applyToType(new Greyscale());
     }
 
     @Override
     public void sharpImage() {
-        this.mod = new Sharpen();
-        this.img.applyToFirst(this.mod);
+        applyToType(new Sharpen());
     }
 
     @Override
-    public void addLayer(String name) {
-        this.img.addLayer(new Layer(name));
+    public void setImage(Image img) {
+        this.img = img;
     }
 
-    @Override
-    public void bringToFront(String name) {
-        this.img.bringToFront(name);
-    }
 }
