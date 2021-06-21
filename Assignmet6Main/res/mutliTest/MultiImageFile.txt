@@ -1,0 +1,2 @@
+res/mutliTest/second.PNG
+res/mutliTest/first.PNG
