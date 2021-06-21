@@ -1,2 +1,2 @@
-res/changedToGreyscale/first.PNG
-res/changedToGreyscale/second.PNG
+res/changedToGreyscale/second.JPG
+res/changedToGreyscale/first.JPG

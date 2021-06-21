@@ -1,9 +1,11 @@
 package model.imageclasses;
 
+/**
+ * Class used to load in images and save them as an Image.
+ */
 public class LoadedImage extends AbstractImage {
     /**
      * Creates a new Load object based on the supplied path to an image.
-     *
      * @param path The path to the .ppm, jpeg, or png picture.
      */
     public LoadedImage(String path) {

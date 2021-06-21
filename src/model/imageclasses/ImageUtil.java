@@ -112,6 +112,11 @@ public class ImageUtil {
     return img;
   }
 
+  /**
+   * Creates a BufferedImage object from image at the specified location.
+   * @param filename The location of the image
+   * @return A BufferedImage object that is created from the given image
+   */
   protected BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
     String filetarget = filename.substring(filename.lastIndexOf('/') + 1);
     String filetype = filetarget.substring(filetarget.length() - 5).toLowerCase();

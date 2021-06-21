@@ -8,3 +8,11 @@ current second
 load meme.jpeg
 sepia
 save-multi mutliTest png
+load-multi mutliTest/MultiImageFile.txt
+current second
+invisible second
+sharp
+visible second
+current second
+grayscale
+save-multi changedToGreyscale jpg

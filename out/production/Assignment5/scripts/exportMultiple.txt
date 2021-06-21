@@ -7,4 +7,4 @@ save face-blur.ppm
 current second
 load meme.jpeg
 sepia
-save-multi mutliTest
+save-multi mutliTest png

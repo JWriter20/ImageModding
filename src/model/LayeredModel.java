@@ -31,9 +31,32 @@ public interface LayeredModel extends ImageModel {
      */
     void setFirstLayerImage(Image img);
 
+    /**
+     * Exports the multi layered image to the folder based on the supplied path
+     * and type to save the images as
+     * @param pathToFolder The path to the folder
+     * @param type The type to save the images as
+     */
     void exportMultiImage(String pathToFolder, ImageTypes type);
 
+    /**
+     * IDK THIS ONE
+     * @param pathToFolder
+     * @param type
+     */
     void exportFirst(String pathToFolder, ImageTypes type);
+
+    /**
+     * Sets the given layer to invisible
+     * @param layerName The name of the given layer
+     */
+    void setLayerToInvisible(String layerName);
+
+    /**
+     * Sets the given layer to visible
+     * @param layerName The name of the given layer
+     */
+    void setLayerToVisible(String layerName);
 
 
 }

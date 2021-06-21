@@ -1,6 +1,8 @@
-load-multi res/mutliTest/MultiImageFile.txt
+load-multi mutliTest/MultiImageFile.txt
+current second
+invisible second
+sharp
+visible second
 current second
 grayscale
-current first
-grayscale
-save-multi changedToGreyscale
+save-multi changedToGreyscale jpg

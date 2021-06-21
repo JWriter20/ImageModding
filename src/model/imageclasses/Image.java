@@ -44,6 +44,11 @@ public interface Image {
    */
   void exportImageAsPPM(String imageName);
 
+  /**
+   * Exports the image with the given name as the given type.
+   * @param imageName The name of the image
+   * @param type The type of the image
+   */
   void exportImageAs(String imageName, ImageTypes type);
 
 

@@ -15,6 +15,10 @@ import java.util.List;
 public class MultiLayerImage implements MultiImage {
     private List<Layer> list;
 
+    /**
+     * Creates a new MultiLayeredImage object. Sets the list of layers to an ArrayList so
+     * more layers can be added easily.
+     */
     public MultiLayerImage() {
         this.list = new ArrayList<Layer>();
     }
@@ -37,8 +41,6 @@ public class MultiLayerImage implements MultiImage {
     @Override
     public void bringToFront(String name) throws IllegalArgumentException {
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(name);
-            System.out.println(list.get(i));
             if (list.get(i).checkName(name)) {
                 list.add(0, list.remove(i));
                 return;
@@ -49,12 +51,22 @@ public class MultiLayerImage implements MultiImage {
 
     @Override
     public void applyToFirst(IModifyImage mod) {
-        list.get(0).modifyImage(mod);
+        for (Layer l: list) {
+            if (l.isVisible()) {
+                l.modifyImage(mod);
+                return;
+            }
+        }
     }
 
     @Override
     public void setFirstLayerImage(Image img) {
-        this.list.get(0).setImage(img);
+        for (Layer l: list) {
+            if (l.isVisible()) {
+                l.setImage(img);
+                return;
+            }
+        }
     }
 
     @Override
@@ -69,24 +81,18 @@ public class MultiLayerImage implements MultiImage {
         }
 
         try {
-            // pathToFolder - res/mutliTest/
-            // pathToTextFile - res/mutliTest/MultiImageFile.txt
             FileWriter writer = new FileWriter(pathToTextFile);
-            System.out.println(list.size());
             for (Layer l: list) {
                 l.exportLayer(pathToFolder + l.getName() + type.toString(), type);
                 writer.append(pathToFolder + l.getName() + type.toString()).append("\n");
 
             }
-
             writer.flush();
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Bad File");
         }
-
-
 
     }
 
@@ -95,6 +101,30 @@ public class MultiLayerImage implements MultiImage {
         this.list.get(0).exportLayer(pathToFolder, type);
     }
 
+    /**
+     * Sets the layer with the given name to visible or invisible based on setToVisible
+     * @param layerName The name of the layer
+     * @param setToVisible True to set the layer to visible, false to set it to invisible
+     */
+    private void abstractVisible(String layerName, boolean setToVisible) {
+        for (Layer l : list) {
+            if (l.checkName(layerName)) {
+                l.setVisible(setToVisible);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find specified layer");
+    }
+
+    @Override
+    public void setGivenToInvisible(String layerName) throws IllegalArgumentException {
+        this.abstractVisible(layerName, false);
+    }
+
+    @Override
+    public void setGivenToVisible(String layerName) throws IllegalArgumentException {
+        this.abstractVisible(layerName, true);
+    }
 
     @Override
     public String toString() {

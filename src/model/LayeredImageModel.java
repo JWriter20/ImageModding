@@ -53,11 +53,20 @@ public class LayeredImageModel extends SimpleImageModel implements LayeredModel 
         this.img.setFirstLayerImage(image);
     }
 
-
+    @Override
     public void exportFirst(String pathToFolder, ImageTypes exportType) {
         img.exportFist(pathToFolder, exportType);
     }
 
+    @Override
+    public void setLayerToInvisible(String layerName) {
+        this.img.setGivenToInvisible(layerName);
+    }
+
+    @Override
+    public void setLayerToVisible(String layerName) {
+        this.img.setGivenToVisible(layerName);
+    }
     @Override
     public void exportMultiImage(String pathToFolder, ImageTypes type) {
         img.exportMultiLayer(pathToFolder, type);
