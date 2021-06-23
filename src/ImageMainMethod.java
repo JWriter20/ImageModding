@@ -1,3 +1,5 @@
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import controller.ImageModController;
@@ -5,8 +7,9 @@ import controller.LayeredImageModController;
 import model.LayeredImageModel;
 import model.LayeredModel;
 import view.Display;
+import view.GraphicalView;
 import view.ImageView;
-
+import view.SimpleGUI;
 
 
 /**
@@ -20,18 +23,15 @@ public class ImageMainMethod {
    */
   public static void main(String[] args) {
 
-
+    GraphicalView view = new SimpleGUI();
+    /*
     LayeredModel model = new LayeredImageModel();
     ImageView view = new Display(System.out);
-    String input =
-            "f\nexportMultiple";
-    String input2 = "f\nloadMultiple";
     ImageModController controller = new LayeredImageModController(model, view,
-            new StringReader(input));
+            new InputStreamReader(System.in));
 
-    ImageModController controller2 = new LayeredImageModController(model, view,
-            new StringReader(input2));
-    controller.go();
+
+    controller.go();*/
     //controller2.go();
 
     /*

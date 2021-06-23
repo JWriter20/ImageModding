@@ -70,7 +70,7 @@ public class ImageUtil {
    * @param filename The path to the file
    * @return A BufferedImage object where each pixel has the RGB value specified in the .ppm file.
    */
-  protected BufferedImage getBufferedImageFromPPM(String filename) {
+  public BufferedImage getBufferedImageFromPPM(String filename) {
     Scanner sc;
     try {
       sc = new Scanner(new FileReader(filename));
@@ -115,9 +115,9 @@ public class ImageUtil {
   /**
    * Creates a BufferedImage object from image at the specified location.
    * @param filename The location of the image
-   * @return A BufferedImage object that is created from the given image
+   * @return A BufferedImage object that is created from the given images
    */
-  protected BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
+  public BufferedImage getBufferedJPEGorBufferedPNG(String filename) {
     String filetarget = filename.substring(filename.lastIndexOf('/') + 1);
     String filetype = filetarget.substring(filetarget.length() - 5).toLowerCase();
     if (filetarget.length() < 5) {
