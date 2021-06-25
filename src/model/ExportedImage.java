@@ -4,15 +4,16 @@ import model.imageclasses.AbstractImage;
 import model.imageclasses.ImageTypes;
 
 /**
- * JAKE DO THIS ONE
+ * An image class that is used to export images.
  */
 public class ExportedImage extends AbstractImage {
-    /**
-     * AND THIS ONE PLZ
-     * @param path
-     * @param type
-     */
-    public ExportedImage(String path, ImageTypes type) {
-        exportImageAs("res/" + path, type);
-    }
+  /**
+   * Exports this image to the given path and saves the image as the given type.
+   *
+   * @param path The given path
+   * @param type The type to save the image as
+   */
+  public ExportedImage(String path, ImageTypes type) {
+    exportImageAs("res/" + path, type);
+  }
 }

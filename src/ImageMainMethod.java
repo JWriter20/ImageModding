@@ -1,15 +1,6 @@
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-
-import controller.ImageModController;
-import controller.LayeredImageModController;
-import model.LayeredImageModel;
-import model.LayeredModel;
-import view.Display;
-import view.GraphicalView;
-import view.ImageView;
-import view.SimpleGUI;
+import model.imageclasses.*;
+import view.AdvancedView;
+import view.AdvancedImageView;
 
 
 /**
@@ -23,7 +14,21 @@ public class ImageMainMethod {
    */
   public static void main(String[] args) {
 
-    GraphicalView view = new SimpleGUI();
+    Image koala = new PPMImage("./Pictures/Koala.ppm");
+    Image face = new LoadedImage("./Pictures/face.png");
+    Image skyline = new LoadedImage("./Pictures/skyline.png");
+    AdvancedView view = new AdvancedImageView(new
+        ImageUtil().getBufferedImageFromPPM("./Pictures/Koala.ppm"));
+
+    /*IModifyImage mosaic = new Mosaic(5000);
+    skyline.display();
+    mosaic.apply(skyline);
+    skyline.display();
+    skyline.exportImageAs("skyline_mosaic_5000Seeds", ImageTypes.PNG);*/
+    /*
+    face.display();
+    mosaic.apply(face);
+    face.display();*/
     /*
     LayeredModel model = new LayeredImageModel();
     ImageView view = new Display(System.out);

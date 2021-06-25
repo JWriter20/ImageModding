@@ -63,6 +63,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
     pack();
 
+    this.setVisible(true);
   }
 
   private String getOpenPath(String desc, String... types) throws IllegalArgumentException {

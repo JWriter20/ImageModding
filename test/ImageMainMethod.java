@@ -1,30 +1,8 @@
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-
-import controller.ImageModController;
-import controller.LayeredImageModController;
-import model.LayeredImageModel;
-import model.LayeredModel;
-import model.imageclasses.CustomCheckerBoard;
-import model.imageclasses.Image;
-import model.imageclasses.PPMImage;
-import model.imageclasses.RainbowImage;
-import model.modifications.Sharpen;
-import model.modifications.Greyscale;
-import model.modifications.Sepia;
-import model.modifications.Blurry;
-import model.modifications.IModifyImage;
 import view.AdvancedImageView;
-import view.AdvancedView;
-import view.Display;
-import view.ImageView;
-
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -45,7 +23,7 @@ public class ImageMainMethod {
     BufferedImage example = null;
     try {
       example = ImageIO.read(new File("./Pictures/face.png"));
-    }catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException();
     }
 
@@ -78,7 +56,6 @@ public class ImageMainMethod {
       // handle exception
     } catch (IllegalAccessException e) {
       // handle exception
-    } catch (Exception e) {
     }
 
   }

@@ -22,3 +22,6 @@
 * Filter - Uses the given kernal values to adjust an image  
 * Transform - Uses the given matrix to adjust the Color value of an image.
 * IModifyImage - the interface that wrapps Filter and Transform, used to apply the filters to images.
+* Mosaic - Applies a "stained-glass" affect to the image by generating seeds, mapping each pixel to the nearest seed, and then taking
+the average of each pixel mapped to the same seed. This is the only part of our program that we had to change. This class directly 
+  implements IModifyImage because it has its own, unique apply method. 

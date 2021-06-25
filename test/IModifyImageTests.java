@@ -1,4 +1,9 @@
-import model.imageclasses.*;
+import model.imageclasses.CustomCheckerBoard;
+import model.imageclasses.Image;
+import model.imageclasses.PPMImage;
+import model.imageclasses.LoadedImage;
+import model.imageclasses.RainbowImage;
+import model.imageclasses.AbstractImage;
 import org.junit.Test;
 import model.modifications.Blurry;
 import model.modifications.Sepia;

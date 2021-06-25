@@ -1,16 +1,22 @@
 package model.imageclasses;
 
 import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
+import javax.swing.ImageIcon;
 
 /**
  * Abstract class that will be extended by any class representing an Image. Many of these
  * methods rely on the BufferedImage field so they can be abstract here.
  */
+
 public abstract class AbstractImage implements Image {
   BufferedImage img;
 
@@ -97,6 +103,21 @@ public abstract class AbstractImage implements Image {
     }
   }
 
+  @Override
+  public void display() {
+    JFrame frame;
+    JLabel label;
+    frame = new JFrame();
+    frame.setTitle("stained_image");
+    frame.setSize(img.getWidth(), img.getHeight());
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    label = new JLabel();
+    label.setIcon(new ImageIcon(img));
+    frame.getContentPane().add(label, BorderLayout.CENTER);
+    frame.setLocationRelativeTo(null);
+    frame.pack();
+    frame.setVisible(true);
+  }
 
 
 }

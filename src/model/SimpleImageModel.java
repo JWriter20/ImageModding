@@ -1,7 +1,11 @@
 package model;
 
 import model.imageclasses.Image;
-import model.modifications.*;
+import model.modifications.IModifyImage;
+import model.modifications.Blurry;
+import model.modifications.Sepia;
+import model.modifications.Greyscale;
+import model.modifications.Sharpen;
 
 /**
  * A simple implementation of the ImageModel interface. Provides the ability to modify an
@@ -9,37 +13,37 @@ import model.modifications.*;
  * if needed.
  */
 public class SimpleImageModel implements ImageModel {
-    protected IModifyImage mod;
-    private Image img;
+  protected IModifyImage mod;
+  private Image img;
 
-    private void applyToType(IModifyImage m) {
-        this.mod = m;
-        this.mod.apply(this.img);
-    }
+  private void applyToType(IModifyImage m) {
+    this.mod = m;
+    this.mod.apply(this.img);
+  }
 
-    @Override
-    public void blurImage() {
-        applyToType(new Blurry());
-    }
+  @Override
+  public void blurImage() {
+    applyToType(new Blurry());
+  }
 
-    @Override
-    public void sepiaImage() {
-        applyToType(new Sepia());
-    }
+  @Override
+  public void sepiaImage() {
+    applyToType(new Sepia());
+  }
 
-    @Override
-    public void grayImage() {
-        applyToType(new Greyscale());
-    }
+  @Override
+  public void grayImage() {
+    applyToType(new Greyscale());
+  }
 
-    @Override
-    public void sharpImage() {
-        applyToType(new Sharpen());
-    }
+  @Override
+  public void sharpImage() {
+    applyToType(new Sharpen());
+  }
 
-    @Override
-    public void setImage(Image img) {
-        this.img = img;
-    }
+  @Override
+  public void setImage(Image img) {
+    this.img = img;
+  }
 
 }

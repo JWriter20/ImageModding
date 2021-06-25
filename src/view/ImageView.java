@@ -6,14 +6,15 @@ package view;
  */
 public interface ImageView {
 
-    /**
-     * Renders the given message through the view.
-     * @param message The given message
-     */
-    void renderMessage(String message);
+  /**
+   * Renders the given message through the view.
+   *
+   * @param message The given message
+   */
+  void renderMessage(String message);
 
-    /**
-     * Renders the script prompt which explains the syntax and how to use the program.
-     */
-    void renderScriptPrompt();
+  /**
+   * Renders the script prompt which explains the syntax and how to use the program.
+   */
+  void renderScriptPrompt();
 }
