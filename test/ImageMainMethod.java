@@ -18,10 +18,16 @@ import model.modifications.Greyscale;
 import model.modifications.Sepia;
 import model.modifications.Blurry;
 import model.modifications.IModifyImage;
+import view.AdvancedImageView;
+import view.AdvancedView;
 import view.Display;
 import view.ImageView;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 /**
@@ -35,7 +41,50 @@ public class ImageMainMethod {
    */
   public static void main(String[] args) {
 
+    AdvancedImageView.setDefaultLookAndFeelDecorated(false);
+    BufferedImage example = null;
+    try {
+      example = ImageIO.read(new File("./Pictures/face.png"));
+    }catch (IOException e) {
+      throw new IllegalArgumentException();
+    }
 
+    AdvancedImageView frame = new AdvancedImageView(example);
+
+    frame.setSize(500, 750);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setVisible(true);
+
+    try {
+      // Set cross-platform Java L&F (also called "Metal")
+      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+
+      //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
+
+      //   UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+      //    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      //    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+      //    {
+      //       if ("Nimbus".equals(info.getName())) {
+      //          UIManager.setLookAndFeel(info.getClassName());
+      //         break;
+      //    }
+      // }
+    } catch (UnsupportedLookAndFeelException e) {
+      // handle exception
+    } catch (ClassNotFoundException e) {
+      // handle exception
+    } catch (InstantiationException e) {
+      // handle exception
+    } catch (IllegalAccessException e) {
+      // handle exception
+    } catch (Exception e) {
+    }
+
+  }
+}
+
+    /*
     LayeredModel model = new LayeredImageModel();
     ImageView view = new Display(System.out);
     //Tests for the controller
@@ -112,6 +161,8 @@ public class ImageMainMethod {
     graph.exportImageAsPPM("GreyscaleGraph");
     snail.exportImageAsPPM("GreyscaleSnail");
 
-    */
+    }
   }
-}
+    */
+
+
