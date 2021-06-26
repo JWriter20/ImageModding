@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 
 public interface AdvancedView extends Notifier {
 
-  @Override
-  void setNotifiable(Notifiable v);
 
   JMenuBar menuBar();
 
