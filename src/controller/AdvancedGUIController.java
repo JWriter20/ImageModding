@@ -74,7 +74,7 @@ public class AdvancedGUIController implements AdvancedController {
    */
   private void parseFile(String name) {
     File file = new File("./src/scripts/"
-        + name + ".txt");
+            + name + ".txt");
     Scanner fileInput;
     try {
       fileInput = new Scanner(file);
@@ -159,7 +159,7 @@ public class AdvancedGUIController implements AdvancedController {
     switch (commandParts[0].toLowerCase()) {
       case "create": {
         if (commandParts.length != 3
-            || !commandParts[1].equalsIgnoreCase("layer")) {
+                || !commandParts[1].equalsIgnoreCase("layer")) {
           throw new IllegalArgumentException("Invalid \"create\" parameters");
         } else {
           this.view.addLayer(commandParts[2]);
@@ -274,7 +274,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"shrink\" commands");
         } else {
           this.model.downsizeAll(Integer.parseInt(commandParts[1]),
-              Integer.parseInt(commandParts[2]));
+                  Integer.parseInt(commandParts[2]));
           this.view.repaint(this.model.getViewImage());
         }
         break;
@@ -290,7 +290,7 @@ public class AdvancedGUIController implements AdvancedController {
       }
       default: {
         throw new IllegalArgumentException("Invalid command, please refer to the " +
-            "documentation for a list of valid commands.");
+                "documentation for a list of valid commands.");
       }
     }
   }

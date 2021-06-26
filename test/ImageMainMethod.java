@@ -1,10 +1,15 @@
 import controller.AdvancedController;
 import controller.AdvancedGUIController;
+import controller.ImageModController;
+import controller.LayeredImageModController;
 import model.LayeredImageModel;
 import model.LayeredModel;
 import view.AdvancedImageView;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import view.Display;
+import view.ImageView;
+
+import java.io.InputStreamReader;
+import java.io.StringReader;
 
 
 /**
@@ -17,40 +22,29 @@ public class ImageMainMethod {
    * @param args Standard main argument.
    */
   public static void main(String[] args) {
-    AdvancedImageView.setDefaultLookAndFeelDecorated(false);
-
     LayeredModel model = new LayeredImageModel();
-    AdvancedController controller = new AdvancedGUIController(model);
 
-    controller.start();
+    if (args[0].equalsIgnoreCase("-script")) {
+      Readable rd = new StringReader("c\n" + args[1]);
+      ImageView view = new Display(System.out);
+      ImageModController controller = new LayeredImageModController(model, view, rd);
+      controller.start();
 
-    try {
-      // Set cross-platform Java L&F (also called "Metal")
-      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-
-      //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
-
-      //   UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-      //    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-      //    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-      //    {
-      //       if ("Nimbus".equals(info.getName())) {
-      //          UIManager.setLookAndFeel(info.getClassName());
-      //         break;
-      //    }
-      // }
-    } catch (UnsupportedLookAndFeelException e) {
-      // handle exception
-    } catch (ClassNotFoundException e) {
-      // handle exception
-    } catch (InstantiationException e) {
-      // handle exception
-    } catch (IllegalAccessException e) {
-      // handle exception
+    } else if (args[0].equals("-text")) {
+      ImageView view = new Display(System.out);
+      ImageModController controller = new LayeredImageModController(model, view,
+              new InputStreamReader(System.in));
+      controller.start();
+    } else if (args[0].equals("-interactive")) {
+      AdvancedImageView.setDefaultLookAndFeelDecorated(false);
+      AdvancedController controller = new AdvancedGUIController(model);
+      controller.start();
+    } else {
+      throw new IllegalArgumentException("Invalid command line arguments");
     }
-
   }
 }
+
 
     /*
     LayeredModel model = new LayeredImageModel();
