@@ -21,31 +21,31 @@ import java.util.List;
  * A class used to view the program.
  */
 public class AdvancedImageView extends JFrame implements AdvancedView,
-        ActionListener {
+    ActionListener {
 
   private String currentLayerName;
   private final JMenuItem[] editItems = {
-          new JMenuItem("Create Layer"),
-          new JMenuItem("Sepia"), new JMenuItem("Grayscale"),
-          new JMenuItem("Sharpen"), new JMenuItem("Blur"),
-          new JMenuItem("Mosaic"), new JMenuItem("Shrink"),
+      new JMenuItem("Create Layer"),
+      new JMenuItem("Sepia"), new JMenuItem("Grayscale"),
+      new JMenuItem("Sharpen"), new JMenuItem("Blur"),
+      new JMenuItem("Mosaic"), new JMenuItem("Shrink"),
   };
 
   private List<JMenu> layers = new ArrayList<JMenu>();
 
   private final JMenuItem[] saveItems = {
-          new JMenuItem("Save Layer as PPM"), new JMenuItem("Save Layer As PNG"),
-          new JMenuItem("Save Layer as JPG"), new JMenuItem("Save All as PPM"),
-          new JMenuItem("Save All as PNG"), new JMenuItem("Save all as JPG")};
+      new JMenuItem("Save Layer as PPM"), new JMenuItem("Save Layer As PNG"),
+      new JMenuItem("Save Layer as JPG"), new JMenuItem("Save All as PPM"),
+      new JMenuItem("Save All as PNG"), new JMenuItem("Save all as JPG")};
 
   private final JMenuItem[] loadItems = {
-          new JMenuItem("Load Script"), new JMenuItem("Load Layer"),
-          new JMenuItem("Load multi-layer Image")
+      new JMenuItem("Load Script"), new JMenuItem("Load Layer"),
+      new JMenuItem("Load multi-layer Image")
   };
 
   private JTextArea sTextArea;
   private final JMenu[] menuItems = {new JMenu("Save"), new JMenu("Load"), new JMenu("Edit"),
-          new JMenu("Layer Options")};
+      new JMenu("Layer Options")};
   private JPanel imagePanel;       // container panel for the top
   private JLabel fileNameDisplay;
   private Notifiable v;
@@ -60,11 +60,6 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     setTitle("Untitled-" + new Date().getTime());
     JSplitPane mainSplitPane = new JSplitPane(); // split the window in top and bottom
     imagePanel = new JPanel();
-    String instructions = "<html>&emsp; &emsp; &emsp; &emsp; In order to get started, create a layer " +
-            "and then load an image. This can be done through the scripting below, or the menus above. " +
-            "<br/> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Once a layer is created and a picture " +
-            "is loaded, it can be easily edited once again through scripting or menus.<html>";
-    JLabel backgroundText = new JLabel(instructions);
     JPanel textPanel = new JPanel(); // container panel for the bottom
 
     getContentPane().setLayout(new GridLayout());
@@ -95,9 +90,15 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   public void addLayer(String name) {
     layers.add(new JMenu(name));
+    System.out.println(layers.size());
+    getJMenuBar().setVisible(false);
+    setJMenuBar(menuBar());
+    getJMenuBar().repaint();
+    getJMenuBar().setVisible(true);
+
   }
 
-  private String getOpenPath(String desc, boolean filterOn, String... types)
+  private String getOpenPath(boolean retFullPath, String desc, boolean filterOn, String... types)
           throws IllegalArgumentException {
     final JFileChooser fileChooser = new JFileChooser(".");
     if (filterOn) {
@@ -111,6 +112,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     int resp = fileChooser.showOpenDialog(AdvancedImageView.this);
     if (resp == JFileChooser.APPROVE_OPTION) {
       File f = fileChooser.getSelectedFile();
+
+      if (retFullPath) {
+        return f.getAbsolutePath();
+      }
       return f.getName();
     }
     throw new IllegalArgumentException("File not Valid");
@@ -148,7 +153,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private String getSaveFolder() {
-    return getOpenPath("File save location", false);
+    return getOpenPath(false, "File save location", false);
   }
 
   private void transform(String command) {
@@ -161,7 +166,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   private void showCreateLayerDialog() {
     JOptionPane.showMessageDialog(this, "You must create a layer first before you can edit" +
-            "click on edit -> Create Layer. To change the current layer click on it in Layer Options.");
+        " click on edit -> Create Layer. To change the current layer click on it in Layer Options.");
   }
 
   @Override
@@ -177,10 +182,6 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         String layerName = JOptionPane.showInputDialog("Enter the layer name");
         if (layerName != null) {
           v.update("create layer " + layerName);
-          layers.add(new JMenu(layerName));
-          setJMenuBar(menuBar());
-        } else {
-          v.update("create layer " + getName());
         }
         break;
       case "Sepia":
@@ -220,13 +221,19 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
         break;
       case "Save Layer as PPM":
-        v.update("save " + saveFileName() + ".ppm");
+        String saved = saveFileName();
+        setTitle(saved);
+        v.update("save " + saved + ".ppm");
         break;
       case "Save Layer As PNG":
-        v.update("save " + saveFileName() + ".png");
+        String saved2 = saveFileName();
+        setTitle(saved2);
+        v.update("save " + saved2 + ".png");
         break;
       case "Save Layer as JPG":
-        v.update("save " + saveFileName() + ".jpg");
+        String saved3 = saveFileName();
+        setTitle(saved3);
+        v.update("save " + saved3 + ".jpg");
         break;
       case "Save All as PPM":
         v.update("save-multi " + getSaveFolder() + " ppm");
@@ -241,17 +248,16 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         v.runScript(sTextArea.getText());
         break;
       case "Load Script":
-        String sciptPath = getOpenPath("Text file containing script", true, "txt");
-        System.out.println(sciptPath);
+        String sciptPath = getOpenPath(true,"Text file containing script", true, "txt");
         v.runFileScript(sciptPath);
         break;
       case "Load Layer":
-        String loadedName = getOpenPath("JPG, PNG, and PPM images",
-                true, "jpg", "png", "jpeg", "ppm");
+        String loadedName = getOpenPath(false,"JPG, PNG, and PPM images",
+            true, "jpg", "png", "jpeg", "ppm");
         v.update("load " + loadedName);
         break;
       case "Load multi-layer Image":
-        String loadedMulti = getOpenPath("Text file containing layered image data",
+        String loadedMulti = getOpenPath(false,"Text file containing layered image data",
                 true, "txt");
         v.update("load " + loadedMulti);
         break;
@@ -300,6 +306,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     initMenuBarField(0, saveItems);
     initMenuBarField(1, loadItems);
     for (JMenu layer : layers) {
+      layer.removeAll();
       JMenuItem curr = new JMenuItem("Set As Current");
       curr.setActionCommand(layer.getText() + " " + curr.getText());
       curr.addActionListener(this);
@@ -312,6 +319,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       layer.add(curr);
       layer.add(invis);
       layer.add(vis);
+      menuItems[3].add(layer);
     }
 
     for (JMenu curr : menuItems) {
@@ -328,7 +336,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     JLabel img = new JLabel(new ImageIcon(image));
     imagePanel.removeAll();
     imagePanel.add(new JScrollPane(img, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
   }
 
   /**

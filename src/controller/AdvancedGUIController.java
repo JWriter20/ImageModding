@@ -66,28 +66,6 @@ public class AdvancedGUIController implements AdvancedController {
     }
   }
 
-  /**
-   * Parses the command in a txt file. This will run through each line in the file, and execute
-   * that command until there are no more lines left. The file does not need to have the "quit"
-   * command. An error is thrown if any of the commands are invalid.
-   * @param name The name of the file, needs to be located in src/scripts/
-   */
-  private void parseFile(String name) {
-    File file = new File("./src/scripts/"
-            + name + ".txt");
-    Scanner fileInput;
-    try {
-      fileInput = new Scanner(file);
-    } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("Unable to read file");
-    }
-
-    while (fileInput.hasNextLine()) {
-      String input = fileInput.nextLine();
-      this.parseCommand(input);
-    }
-  }
-
 
   /**
    * Loads an Image from the given path.
@@ -159,7 +137,7 @@ public class AdvancedGUIController implements AdvancedController {
     switch (commandParts[0].toLowerCase()) {
       case "create": {
         if (commandParts.length != 3
-                || !commandParts[1].equalsIgnoreCase("layer")) {
+            || !commandParts[1].equalsIgnoreCase("layer")) {
           throw new IllegalArgumentException("Invalid \"create\" parameters");
         } else {
           this.view.addLayer(commandParts[2]);
@@ -189,6 +167,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"invisible\" parameters");
         } else {
           this.model.setLayerToInvisible(commandParts[1]);
+          this.view.repaint(this.model.getViewImage());
         }
         break;
       }
@@ -197,6 +176,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"visible\" parameters");
         } else {
           this.model.setLayerToVisible(commandParts[1]);
+          this.view.repaint(this.model.getViewImage());
         }
         break;
       }
@@ -274,7 +254,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"shrink\" commands");
         } else {
           this.model.downsizeAll(Integer.parseInt(commandParts[1]),
-                  Integer.parseInt(commandParts[2]));
+              Integer.parseInt(commandParts[2]));
           this.view.repaint(this.model.getViewImage());
         }
         break;
@@ -290,7 +270,7 @@ public class AdvancedGUIController implements AdvancedController {
       }
       default: {
         throw new IllegalArgumentException("Invalid command, please refer to the " +
-                "documentation for a list of valid commands.");
+            "documentation for a list of valid commands.");
       }
     }
   }
