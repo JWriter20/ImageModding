@@ -12,13 +12,8 @@ import java.awt.event.ActionListener;
 public class SimpleGraphicalController implements GraphicalController, ActionListener {
   private LayeredModel model;
 
-
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      case "Modification Button": {
-
-      }
-    }
+    //ActionPerformed method
   }
 }

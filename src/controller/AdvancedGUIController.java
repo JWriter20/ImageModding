@@ -1,12 +1,17 @@
 package controller;
 
 import model.LayeredModel;
-import model.imageclasses.*;
+import model.imageclasses.Image;
+import model.imageclasses.LoadedImage;
+import model.imageclasses.MultiImage;
+import model.imageclasses.MultiLayerImage;
+import model.imageclasses.ImageTypes;
 import view.AdvancedImageView;
 import view.AdvancedView;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,33 +19,33 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Controller used to control the program through a graphical user interface.
+ */
 public class AdvancedGUIController implements AdvancedController {
   private LayeredModel model;
   private AdvancedView view;
   private Readable rd;
-  private Notifiable v;
+
 
   /**
    * Sets the model, view, and readable to the given objects.
    * @param model The model, in this case a LayeredModel
-   * @param view The view object
    */
   public AdvancedGUIController(LayeredModel model) {
     this.model = model;
-    this.v = new Notifiable(this);
-    this.view = new AdvancedImageView(v);
+    this.view = new AdvancedImageView(new Notifiable(this));
   }
 
-  public void go() {
+  @Override
+  public void start() {
     AdvancedImageView.setDefaultLookAndFeelDecorated(false);
     BufferedImage example = null;
     try {
       example = ImageIO.read(new File("./Pictures/face.png"));
-    }catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException();
     }
-
-
 
 
     try {
@@ -66,7 +71,6 @@ public class AdvancedGUIController implements AdvancedController {
       // handle exception
     } catch (IllegalAccessException e) {
       // handle exception
-    } catch (Exception e) {
     }
   }
 
@@ -155,12 +159,12 @@ public class AdvancedGUIController implements AdvancedController {
   /**
    * Takes in a string and either executes the command if the command is valid, or throws an error.
    * @param command The command to be parsed and executed
-   * @throws IllegalArgumentException If the command is not valid based on the syntax outlined in the
-   * USEME.md file
+   * @throws IllegalArgumentException If the command is not valid based on the syntax
+   *       outlined in the USEME.md file
    */
   public void parseCommand(String command) throws IllegalArgumentException {
     String[] commandParts = command.split(" ");
-    switch(commandParts[0]) {
+    switch (commandParts[0]) {
       case "create": {
         if (commandParts.length != 3
             || !commandParts[1].equalsIgnoreCase("layer")) {
@@ -217,7 +221,7 @@ public class AdvancedGUIController implements AdvancedController {
 
       case "save-multi": {
 
-        switch(commandParts[2].toLowerCase()) {
+        switch (commandParts[2].toLowerCase()) {
           case "png":
             exportMultiLayeredImage("res/" + commandParts[1], ImageTypes.PNG);
             break;

@@ -2,7 +2,21 @@ package view;
 
 import controller.Notifiable;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JTextArea;
+import javax.swing.JMenu;
+import javax.swing.JSplitPane;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A class used to view the program.
+ */
 public class AdvancedImageView extends JFrame implements AdvancedView,
     ActionListener, ItemListener {
 
@@ -43,18 +60,21 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   private JTextArea sTextArea;
   private final JMenu[] menuItems = {new JMenu("Save"), new JMenu("Load"), new JMenu("Edit"),
       new JMenu("Layer Options")};
-  private JSplitPane mainSplitPane;  // split the window in top and bottom
   private JPanel imagePanel;       // container panel for the top
-  private JPanel textPanel;    // container panel for the bottom
   private JLabel fileNameDisplay;
   private Notifiable v;
 
+  /**
+   * Creates an AdvancedImageView object with the given Notifiable object.
+   *
+   * @param v The notifiable object
+   */
   public AdvancedImageView(Notifiable v) {
     this.v = v;
     setTitle("Untitled-" + new Date().getTime());
-    mainSplitPane = new JSplitPane();
+    JSplitPane mainSplitPane = new JSplitPane(); // split the window in top and bottom
     imagePanel = new JPanel();
-    textPanel = new JPanel();
+    JPanel textPanel = new JPanel(); // container panel for the bottom
 
     getContentPane().setLayout(new GridLayout());
     getContentPane().add(mainSplitPane);
@@ -82,7 +102,8 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   }
 
-  private String getOpenPath(String desc, boolean filterOn, String... types) throws IllegalArgumentException {
+  private String getOpenPath(String desc, boolean filterOn, String... types)
+      throws IllegalArgumentException {
     final JFileChooser fileChooser = new JFileChooser(".");
     if (filterOn) {
       FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -138,7 +159,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private void transform(String command) {
-    if(!layers.isEmpty()) {
+    if (!layers.isEmpty()) {
       v.update(command);
     } else {
       showCreateLayerDialog();
@@ -153,48 +174,73 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   @Override
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
-      case "SetName" : String s = JOptionPane.showInputDialog("Please enter your username");
-      if (s != null) {
-        fileNameDisplay.setText("Layer name: " + s);
-      } break;
+      case "SetName":
+        String s = JOptionPane.showInputDialog("Please enter your username");
+        if (s != null) {
+          fileNameDisplay.setText("Layer name: " + s);
+        }
+        break;
       case "Create Layer":
         String layerName = JOptionPane.showInputDialog("Enter the layer name");
         if (layerName != null) {
           v.update("create layer " + layerName);
           layers.add(new JMenu(layerName));
           setJMenuBar(menuBar());
-        }else {
+        } else {
           v.update("create layer " + getName());
         }
         break;
-      case "Sepia": transform("sepia"); break;
-      case "Grayscale": transform("grayScale"); break;
-      case "Sharpen": transform("sharp"); break;
-      case "Blur": transform("blur"); break;
-      case "Mosaic": transform("mosaic"); break;
-      case "Shrink": transform("shrink"); break;
+      case "Sepia":
+        transform("sepia");
+        break;
+      case "Grayscale":
+        transform("grayScale");
+        break;
+      case "Sharpen":
+        transform("sharp");
+        break;
+      case "Blur":
+        transform("blur");
+        break;
+      case "Mosaic":
+        transform("mosaic");
+        break;
+      case "Shrink":
+        transform("shrink");
+        break;
       case "Save Layer as PPM":
-        v.update("save " + saveFileName() + ".ppm"); break;
+        v.update("save " + saveFileName() + ".ppm");
+        break;
       case "Save Layer As PNG":
-        v.update("save " + saveFileName() + ".png"); break;
+        v.update("save " + saveFileName() + ".png");
+        break;
       case "Save Layer as JPG":
-        v.update("save " + saveFileName() + ".jpg"); break;
-      case "Save All as PPM": v.update("save-multi " + getSaveFolder() + " ppm");break;
-      case "Save All as PNG": v.update("save-multi " + getSaveFolder() + " png");break;
-      case "Save all as JPG": v.update("save-multi " + getSaveFolder() + " jpg");break;
+        v.update("save " + saveFileName() + ".jpg");
+        break;
+      case "Save All as PPM":
+        v.update("save-multi " + getSaveFolder() + " ppm");
+        break;
+      case "Save All as PNG":
+        v.update("save-multi " + getSaveFolder() + " png");
+        break;
+      case "Save all as JPG":
+        v.update("save-multi " + getSaveFolder() + " jpg");
+        break;
       case "Submit":
-        v.runScript(sTextArea.getText()); break;
+        v.runScript(sTextArea.getText());
+        break;
       case "Load Script":
-        String sciptPath = getOpenPath("Text file containing script",true,"txt");
+        String sciptPath = getOpenPath("Text file containing script", true, "txt");
         System.out.println(sciptPath);
-        v.runFileScript(sciptPath); break;
+        v.runFileScript(sciptPath);
+        break;
       case "Load Layer":
         String loadedName = getOpenPath("JPG, PNG, and PPM images",
-            true,"jpg", "png", "jpeg", "ppm");
+            true, "jpg", "png", "jpeg", "ppm");
         v.update("load " + loadedName.substring(loadedName.lastIndexOf('/')));
-         break;
+        break;
       case "Load multi-layer Image":
-        String loadedMulti = getOpenPath("Text file containing layered image data",true, "txt");
+        String loadedMulti = getOpenPath("Text file containing layered image data", true, "txt");
         System.out.println(loadedMulti);
         v.update("load " + loadedMulti);
         break;
@@ -214,6 +260,9 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
             case "Show Layer":
               v.update("visible " + command[0]);
               break;
+            default: {
+              //Should not get here
+            }
           }
         }
     }
@@ -221,24 +270,29 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   @Override
   public void itemStateChanged(ItemEvent e) {
-
+    //Dont need to override
   }
 
+  //Initializes the MenuBar field
   private void initMenuBarField(int menuIndex, JMenuItem[] items) {
-    for (JMenuItem curr: items) {
+    for (JMenuItem curr : items) {
       menuItems[menuIndex].add(curr);
       curr.setActionCommand(curr.getText());
       curr.addActionListener(this);
     }
   }
 
+  /**
+   * Creates a JMenuBar.
+   * @return Returns the JMenuBar
+   */
   public JMenuBar menuBar() {
     JMenuBar menuBar = new JMenuBar();
 
     initMenuBarField(2, editItems);
     initMenuBarField(0, saveItems);
     initMenuBarField(1, loadItems);
-    for (JMenu layer: layers) {
+    for (JMenu layer : layers) {
       JMenuItem curr = new JMenuItem("Set As Current");
       curr.setActionCommand(layer.getText() + " " + curr.getText());
       curr.addActionListener(this);
@@ -253,12 +307,16 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       layer.add(vis);
     }
 
-    for (JMenu curr: menuItems) {
+    for (JMenu curr : menuItems) {
       menuBar.add(curr);
     }
     return menuBar;
   }
 
+  /**
+   * Sets the image to the given one.
+   * @param image The given image
+   */
   public void setImage(BufferedImage image) {
     JLabel img = new JLabel(new ImageIcon(image));
     imagePanel.removeAll();
@@ -266,6 +324,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
   }
 
+  /**
+   * Repaints the image as the given one.
+   * @param image The given image
+   */
   public void repaint(BufferedImage image) {
     imagePanel.setVisible(false);
     setImage(image);
@@ -273,6 +335,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     imagePanel.setVisible(true);
   }
 
+  /**
+   * Creates the JScrollPane that is used for the user to input a script.
+   * @return A JScrollPane that can be used for this purpose
+   */
   public JScrollPane scriptInputBox() {
     sTextArea = new JTextArea(10, 20);
     JScrollPane scrollPane = new JScrollPane(sTextArea);

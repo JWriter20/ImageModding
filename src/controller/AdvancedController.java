@@ -1,5 +1,8 @@
 package controller;
 
+/**
+ * Interface used to create controllers that start and run the program.
+ */
 public interface AdvancedController {
   /**
    * Method that starts the program. This will prompt the user to either enter commands
@@ -7,7 +10,11 @@ public interface AdvancedController {
    * file is parsed and executed, there is an error in the file, there is an error
    * in the manually entered commands, or the user enters the "quit" command.
    */
-  void go();
+  void start();
 
+  /**
+   * Parses a single command.
+   * @param command The command
+   */
   void parseCommand(String command);
 }

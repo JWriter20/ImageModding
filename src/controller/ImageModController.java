@@ -10,5 +10,5 @@ public interface ImageModController {
    * file is parsed and executed, there is an error in the file, there is an error
    * in the manually entered commands, or the user enters the "quit" command.
    */
-  void go();
+  void start();
 }

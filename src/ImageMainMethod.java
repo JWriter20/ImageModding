@@ -1,6 +1,6 @@
-import model.imageclasses.*;
-import view.AdvancedView;
-import view.AdvancedImageView;
+import model.imageclasses.Image;
+import model.imageclasses.PPMImage;
+import model.imageclasses.LoadedImage;
 
 
 /**
@@ -16,9 +16,7 @@ public class ImageMainMethod {
 
     Image koala = new PPMImage("./Pictures/Koala.ppm");
     Image face = new LoadedImage("./Pictures/face.png");
-    Image skyline = new LoadedImage("./Pictures/skyline.png");
-    AdvancedView view = new AdvancedImageView(new
-        ImageUtil().getBufferedImageFromPPM("./Pictures/Koala.ppm"));
+
 
     /*IModifyImage mosaic = new Mosaic(5000);
     skyline.display();

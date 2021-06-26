@@ -2,7 +2,6 @@ package model.imageclasses;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 /**
  * Interface representing a image that can be processed and modified.
