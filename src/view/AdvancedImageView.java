@@ -20,7 +20,7 @@ import java.util.List;
 public class AdvancedImageView extends JFrame implements AdvancedView,
     ActionListener, ItemListener {
 
-  private String currentTitle;
+  private String currentLayerName;
   private final JMenuItem[] editItems = {
       new JMenuItem("Create Layer"),
       new JMenuItem("Sepia"), new JMenuItem("Grayscale"),
@@ -74,7 +74,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     textPanel.add(submitScript());
     textPanel.add(titleSetter());
 
-    setSize(600, 750);
+    setSize(900, 900);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
 
@@ -101,12 +101,6 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
 
-  @Override
-  public void setNotifiable(Notifiable v) {
-    this.v = v;
-    System.out.println(v);
-  }
-
   private JButton submitScript() {
     JButton submit = new JButton("Run Script");
     submit.addActionListener(this);
@@ -118,12 +112,12 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     JPanel inputDialogPanel = new JPanel();
     inputDialogPanel.setLayout(new FlowLayout());
 
-    JButton inputButton = new JButton("Click to set fileName");
+    JButton inputButton = new JButton("Set layer name");
     inputButton.setActionCommand("SetName");
     inputButton.addActionListener(this);
     inputDialogPanel.add(inputButton);
     setTitle(inputDialogPanel.getName());
-    fileNameDisplay = new JLabel("Filename: " + getTitle());
+    fileNameDisplay = new JLabel("Layer name: " + getTitle());
     inputDialogPanel.add(fileNameDisplay);
     return inputDialogPanel;
   }
@@ -189,10 +183,11 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       case "Save All as PNG": v.update("save-multi " + getSaveFolder() + " png");break;
       case "Save all as JPG": v.update("save-multi " + getSaveFolder() + " jpg");break;
       case "Submit":
-        System.out.println(v);
         v.runScript(sTextArea.getText()); break;
       case "Load Script":
-        v.runFileScript(getOpenPath("Text file containing script",true,"txt")); break;
+        String sciptPath = getOpenPath("Text file containing script",true,"txt");
+        System.out.println(sciptPath);
+        v.runFileScript(sciptPath); break;
       case "Load Layer":
         String loadedName = getOpenPath("JPG, PNG, and PPM images",
             true,"jpg", "png", "jpeg", "ppm");
@@ -200,13 +195,14 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
          break;
       case "Load multi-layer Image":
         String loadedMulti = getOpenPath("Text file containing layered image data",true, "txt");
+        System.out.println(loadedMulti);
         v.update("load " + loadedMulti);
         break;
       default:
         String[] command = e.getActionCommand().split(" ");
         if (command.length != 2) {
           throw new IllegalArgumentException("Invalid command");
-        }else {
+        } else {
           switch (command[1]) {
             case "Set As Current":
               v.update("current " + command[0]);
@@ -265,13 +261,16 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   public void setImage(BufferedImage image) {
     JLabel img = new JLabel(new ImageIcon(image));
+    imagePanel.removeAll();
     imagePanel.add(new JScrollPane(img, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
   }
 
   public void repaint(BufferedImage image) {
+    imagePanel.setVisible(false);
     setImage(image);
-    super.repaint();
+    imagePanel.repaint();
+    imagePanel.setVisible(true);
   }
 
   public JScrollPane scriptInputBox() {
@@ -279,7 +278,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     JScrollPane scrollPane = new JScrollPane(sTextArea);
     sTextArea.setLineWrap(true);
     //scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    scrollPane.setPreferredSize(new Dimension(300, 500));
+    scrollPane.setPreferredSize(new Dimension(900, 900));
     scrollPane.setBorder(BorderFactory.createTitledBorder("Input Script"));
     return scrollPane;
   }

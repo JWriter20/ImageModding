@@ -5,8 +5,7 @@ import controller.Notifiable;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public interface AdvancedView extends Notifier {
-
+public interface AdvancedView {
 
   JMenuBar menuBar();
 
