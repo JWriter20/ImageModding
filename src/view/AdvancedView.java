@@ -1,15 +1,18 @@
 package view;
 
-import model.imageclasses.Image;
+import controller.Notifiable;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public interface AdvancedView {
+public interface AdvancedView extends Notifier {
 
-  //JPanel imagePane(BufferedImage img);
+  @Override
+  void setNotifiable(Notifiable v);
 
   JMenuBar menuBar();
+
+  void repaint(BufferedImage image);
 
 
 }
