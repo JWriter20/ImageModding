@@ -1,6 +1,8 @@
 package model.imageclasses;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 /**
  * Interface representing a image that can be processed and modified.
@@ -50,6 +52,11 @@ public interface Image {
    */
   void exportImageAs(String imageName, ImageTypes type);
 
-  void display();
+  /**
+   * Returns a bufferedImage to be shown in the view.
+   */
+  BufferedImage getViewImage();
+
+
 
 }
