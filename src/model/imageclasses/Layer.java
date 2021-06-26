@@ -78,7 +78,9 @@ public class Layer {
      * @param type The type to save the image as
      */
     public void exportLayer(String pathToFolder, ImageTypes type) {
-        this.img.exportImageAs(pathToFolder, type);
+        if (this.img != null) {
+            this.img.exportImageAs(pathToFolder, type);
+        }
     }
 
     @Override
