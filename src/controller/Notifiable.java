@@ -24,6 +24,7 @@ public class Notifiable {
    * @param command The given command
    */
   public void update(String command) {
+    System.out.println(command);
     controller.parseCommand(command);
 
   }

@@ -1,6 +1,7 @@
 package view;
 
 import controller.Notifiable;
+import model.imageclasses.LoadedImage;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -75,7 +76,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
     setJMenuBar(menuBar());
 
-    //imagePanel.add();
+    setImage(new LoadedImage("./Pictures/default.png").getViewImage());
     textPanel.add(scriptInputBox());
     textPanel.add(submitScript());
     //textPanel.add(titleSetter());
@@ -90,15 +91,17 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   public void addLayer(String name) {
     layers.add(new JMenu(name));
-    System.out.println(layers.size());
     getJMenuBar().setVisible(false);
     setJMenuBar(menuBar());
     getJMenuBar().repaint();
     getJMenuBar().setVisible(true);
 
   }
-
-  private String getOpenPath(boolean retFullPath, String desc, boolean filterOn, String... types)
+  //retType Values :
+  // 1 - name of file
+  // 2 - full path
+  // 3 - parent dir + file
+  private String getOpenPath(int retType, String desc, boolean filterOn, String... types)
           throws IllegalArgumentException {
     final JFileChooser fileChooser = new JFileChooser(".");
     if (filterOn) {
@@ -113,12 +116,18 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     if (resp == JFileChooser.APPROVE_OPTION) {
       File f = fileChooser.getSelectedFile();
 
-      if (retFullPath) {
-        return f.getAbsolutePath();
+      switch (retType) {
+        case 1:
+          return f.getName();
+        case 2:
+          return f.getAbsolutePath();
+        case 3:
+          return f.getAbsolutePath().substring(
+                  f.getAbsolutePath().indexOf(f.getParentFile().getName()));
       }
       return f.getName();
     }
-    throw new IllegalArgumentException("File not Valid");
+    throw new IllegalArgumentException("File not valid");
   }
 
 
@@ -153,7 +162,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private String getSaveFolder() {
-    return getOpenPath(false, "File save location", false);
+    return getOpenPath(1, "File save location", false);
   }
 
   private void transform(String command) {
@@ -181,6 +190,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       case "Create Layer":
         String layerName = JOptionPane.showInputDialog("Enter the layer name");
         if (layerName != null) {
+          setTitle(layerName);
           v.update("create layer " + layerName);
         }
         break;
@@ -248,16 +258,25 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         v.runScript(sTextArea.getText());
         break;
       case "Load Script":
-        String sciptPath = getOpenPath(true,"Text file containing script", true, "txt");
+        String sciptPath = getOpenPath(2,"Text file containing script", true, "txt");
         v.runFileScript(sciptPath);
         break;
       case "Load Layer":
-        String loadedName = getOpenPath(false,"JPG, PNG, and PPM images",
-            true, "jpg", "png", "jpeg", "ppm");
+        if (layers.isEmpty()) {
+          String layerNameDef = JOptionPane.showInputDialog("Enter a layer name for your photo");
+          if (layerNameDef != null) {
+            v.update("create layer " + layerNameDef);
+            String loadedName = getOpenPath(1,"JPG, PNG, and PPM images",
+                    true, "jpg", "png", "jpeg", "ppm");
+            v.update("load " + loadedName);
+          }
+        }
+        String loadedName = getOpenPath(1,"JPG, PNG, and PPM images",
+                true, "jpg", "png", "jpeg", "ppm");
         v.update("load " + loadedName);
         break;
       case "Load multi-layer Image":
-        String loadedMulti = getOpenPath(false,"Text file containing layered image data",
+        String loadedMulti = getOpenPath(3, "Text file containing layered image data",
                 true, "txt");
         v.update("load " + loadedMulti);
         break;
@@ -267,14 +286,14 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
           throw new IllegalArgumentException("Invalid command");
         } else {
           switch (command[1]) {
-            case "Set As Current":
+            case "Set_As_Current":
               v.update("current " + command[0]);
               setTitle(command[0]);
               break;
-            case "Hide Layer":
+            case "Hide_Layer":
               v.update("invisible " + command[0]);
               break;
-            case "Show Layer":
+            case "Show_Layer":
               v.update("visible " + command[0]);
               break;
             default: {
@@ -289,6 +308,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   //Initializes the MenuBar field
   private void initMenuBarField(int menuIndex, JMenuItem[] items) {
     for (JMenuItem curr : items) {
+      for (ActionListener l : curr.getActionListeners()) {
+        curr.removeActionListener(l);
+      }
+
       menuItems[menuIndex].add(curr);
       curr.setActionCommand(curr.getText());
       curr.addActionListener(this);
@@ -307,13 +330,23 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     initMenuBarField(1, loadItems);
     for (JMenu layer : layers) {
       layer.removeAll();
-      JMenuItem curr = new JMenuItem("Set As Current");
+      JMenuItem curr = new JMenuItem("Set_As_Current");
+      for (ActionListener l : curr.getActionListeners()) {
+        curr.removeActionListener(l);
+      }
       curr.setActionCommand(layer.getText() + " " + curr.getText());
       curr.addActionListener(this);
-      JMenuItem invis = new JMenuItem("Hide Layer");
+      JMenuItem invis = new JMenuItem("Hide_Layer");
+      for (ActionListener l : invis.getActionListeners()) {
+        invis.removeActionListener(l);
+      }
+
       invis.setActionCommand(layer.getText() + " " + invis.getText());
       invis.addActionListener(this);
-      JMenuItem vis = new JMenuItem("Show Layer");
+      JMenuItem vis = new JMenuItem("Show_Layer");
+      for (ActionListener l : vis.getActionListeners()) {
+        vis.removeActionListener(l);
+      }
       vis.setActionCommand(layer.getText() + " " + vis.getText());
       vis.addActionListener(this);
       layer.add(curr);

@@ -3,6 +3,7 @@ package model.imageclasses;
 import model.modifications.IModifyImage;
 import model.modifications.Mosaic;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
@@ -147,7 +148,7 @@ public class MultiLayerImage implements MultiImage {
         return l.getViewImg();
       }
     }
-    throw new IllegalArgumentException("No Visible Image");
+    return new LoadedImage("./Pictures/default.png").getViewImage();
   }
 
   @Override

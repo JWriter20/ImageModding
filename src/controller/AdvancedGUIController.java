@@ -150,6 +150,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"current\" parameters");
         } else {
           this.model.bringToFront(commandParts[1]);
+          this.view.repaint(this.model.getViewImage());
         }
         break;
       }

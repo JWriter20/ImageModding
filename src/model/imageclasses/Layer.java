@@ -124,6 +124,9 @@ public class Layer {
    * @return The BufferedImage object
    */
   public BufferedImage getViewImg() {
+    if (this.img == null) {
+      return new LoadedImage("./Pictures/default.png").getViewImage();
+    }
     return this.img.getViewImage();
   }
 
