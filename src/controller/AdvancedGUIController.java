@@ -24,14 +24,11 @@ public class AdvancedGUIController implements AdvancedController {
    * Sets the model, view, and readable to the given objects.
    * @param model The model, in this case a LayeredModel
    * @param view The view object
-   * @param rd The readable object
    */
-  public AdvancedGUIController(LayeredModel model, AdvancedView view, Readable rd) {
+  public AdvancedGUIController(LayeredModel model) {
     this.model = model;
-    this.view = view;
-    this.rd = rd;
-    this.v = new Notifiable();
-    view.setNotifiable(v);
+    this.v = new Notifiable(this);
+    this.view = new AdvancedImageView(v);
   }
 
   public void go() {
@@ -43,7 +40,7 @@ public class AdvancedGUIController implements AdvancedController {
       throw new IllegalArgumentException();
     }
 
-    new AdvancedImageView(example);
+
 
 
     try {

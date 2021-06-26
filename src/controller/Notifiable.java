@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 public class Notifiable {
 
-  private String command;
   AdvancedController controller;
 
+  public Notifiable(AdvancedController controller) {
+    this.controller = controller;
+  }
 
   public void update(String command) {
-    this.command = command;
     controller.parseCommand(command);
 
   }
@@ -19,7 +20,9 @@ public class Notifiable {
   public void runScript(String script) {
     String[] commands = script.split("\n");
     int i = 0;
-    while (!commands[i].equalsIgnoreCase("quit") && i < commands.length) {
+    System.out.println(commands.length);
+    while (i < commands.length && !commands[i].equalsIgnoreCase("quit")) {
+      System.out.println(commands[i]);
       controller.parseCommand(commands[i]);
       i++;
     }
