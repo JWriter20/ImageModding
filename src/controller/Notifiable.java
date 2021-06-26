@@ -20,7 +20,6 @@ public class Notifiable {
   public void runScript(String script) {
     String[] commands = script.split("\n");
     int i = 0;
-    System.out.println(commands.length);
     while (i < commands.length && !commands[i].equalsIgnoreCase("quit")) {
       System.out.println(commands[i]);
       controller.parseCommand(commands[i]);

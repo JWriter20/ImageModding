@@ -183,6 +183,7 @@ public class AdvancedGUIController implements AdvancedController {
           throw new IllegalArgumentException("Invalid \"load\" parameters");
         } else {
           this.model.setFirstLayerImage(loadImage("Pictures/" + commandParts[1]));
+          this.view.repaint(this.model.getViewImage());
         }
         break;
       }
@@ -205,6 +206,7 @@ public class AdvancedGUIController implements AdvancedController {
 
       case "load-multi": {
         loadMultiLayeredImage("res/" + commandParts[1]);
+        this.view.repaint(this.model.getViewImage());
         break;
       }
 
