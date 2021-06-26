@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * A Controller that takes in a model and view and runs the program.
+ * The interface for the Controller.
  */
 public interface ImageModController {
   /**
@@ -10,5 +10,5 @@ public interface ImageModController {
    * file is parsed and executed, there is an error in the file, there is an error
    * in the manually entered commands, or the user enters the "quit" command.
    */
-  void start();
+  void go();
 }
