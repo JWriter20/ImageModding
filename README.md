@@ -24,4 +24,8 @@
 * IModifyImage - the interface that wrapps Filter and Transform, used to apply the filters to images.
 * Mosaic - Applies a "stained-glass" affect to the image by generating seeds, mapping each pixel to the nearest seed, and then taking
 the average of each pixel mapped to the same seed. This is the only part of our program that we had to change. This class directly 
-  implements IModifyImage because it has its own, unique apply method. 
+  implements IModifyImage because it has its own, unique apply method. It works like an other modification such 
+  as sepia or sharpen. 
+* DownScale - Creates a new Image of the provided dimensions which is a smaller version of the provided Image. 
+We only needed to add this one class. This class does not implement IModifyImage because the effect is 
+  changing the dimensions of hte image, but everything else in IModifyImage only changes the colors of the pixels. 
