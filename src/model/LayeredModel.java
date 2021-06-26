@@ -70,5 +70,16 @@ public interface LayeredModel extends ImageModel {
    */
   void setLayerToVisible(String layerName);
 
+  /**
+   * Applies a mosaic effect to the image in the topmost, visible layer.
+   * @param numSeeds The number of seeds the mosaic will have
+   */
+  void mosaicFirst(int numSeeds);
 
+  /**
+   * Downsizes all the images in the layers to the given width and heights.
+   * @param newWidth The new width
+   * @param newHeight The new height
+   */
+  void downsizeAll(int newWidth, int newHeight);
 }

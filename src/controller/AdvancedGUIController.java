@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.deploy.util.StringUtils;
 import model.LayeredModel;
 import model.imageclasses.Image;
 import model.imageclasses.LoadedImage;
@@ -277,21 +278,20 @@ public class AdvancedGUIController implements AdvancedController {
         break;
       }
       case "shrink": {
-        if (commandParts.length != 1) {
+        if (commandParts.length != 3) {
           throw new IllegalArgumentException("Invalid \"shrink\" commands");
         } else {
-          //TODO CHANGE SHARP
-          this.model.sharpImage();
+          this.model.downsizeAll(Integer.parseInt(commandParts[1]),
+              Integer.parseInt(commandParts[2]));
           this.view.repaint(this.model.getViewImage());
         }
         break;
       }
       case "mosaic": {
-        if (commandParts.length != 1) {
+        if (commandParts.length != 2) {
           throw new IllegalArgumentException("Invalid \"mosaic\" commands");
         } else {
-          //TODO CHANGE SHARP
-          this.model.sharpImage();
+          this.model.mosaicFirst(Integer.parseInt(commandParts[1]));
           this.view.repaint(this.model.getViewImage());
         }
         break;

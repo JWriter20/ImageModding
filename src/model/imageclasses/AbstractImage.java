@@ -1,11 +1,12 @@
 package model.imageclasses;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * Abstract class that will be extended by any class representing an Image. Many of these
@@ -102,6 +103,18 @@ public abstract class AbstractImage implements Image {
     return this.img;
   }
 
+  @Override
+  public void display() {
+    ImageIcon icon=new ImageIcon(img);
+    JFrame frame=new JFrame();
+    frame.setLayout(new FlowLayout());
+    frame.setSize(200,200);
+    JLabel lbl=new JLabel();
+    lbl.setIcon(icon);
+    frame.add(lbl);
+    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
 
 
 }

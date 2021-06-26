@@ -1,6 +1,7 @@
 package model.imageclasses;
 
 import model.modifications.IModifyImage;
+import model.modifications.Mosaic;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,6 +59,15 @@ public class MultiLayerImage implements MultiImage {
       if (l.isVisible()) {
         l.modifyImage(mod);
         return;
+      }
+    }
+  }
+
+  @Override
+  public void applyMosaicToFirst(Mosaic m) {
+    for (Layer l : list) {
+      if (l.isVisible()) {
+        l.applyMosaic(m);
       }
     }
   }
@@ -138,6 +148,13 @@ public class MultiLayerImage implements MultiImage {
       }
     }
     throw new IllegalArgumentException("No Visible Image");
+  }
+
+  @Override
+  public void downsizeAll(int newWidth, int newHeight) {
+    for (Layer l : list) {
+      l.downSizeImg(newWidth, newHeight);
+    }
   }
 
   @Override

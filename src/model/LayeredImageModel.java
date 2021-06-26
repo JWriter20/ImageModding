@@ -5,10 +5,7 @@ import model.imageclasses.MultiImage;
 import model.imageclasses.MultiLayerImage;
 import model.imageclasses.ImageTypes;
 import model.imageclasses.Layer;
-import model.modifications.Blurry;
-import model.modifications.Greyscale;
-import model.modifications.Sepia;
-import model.modifications.Sharpen;
+import model.modifications.*;
 
 import java.awt.image.BufferedImage;
 
@@ -77,6 +74,17 @@ public class LayeredImageModel extends SimpleImageModel implements LayeredModel 
   @Override
   public void setLayerToVisible(String layerName) {
     this.img.setGivenToVisible(layerName);
+  }
+
+  @Override
+  public void mosaicFirst(int numSeeds) {
+    Mosaic m = new Mosaic(numSeeds);
+    this.img.applyMosaicToFirst(m);
+  }
+
+  @Override
+  public void downsizeAll(int newWidth, int newHeight) {
+    this.img.downsizeAll(newWidth, newHeight);
   }
 
   @Override

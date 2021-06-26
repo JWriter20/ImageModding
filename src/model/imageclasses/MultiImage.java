@@ -1,6 +1,8 @@
 package model.imageclasses;
 
+import model.modifications.DownScale;
 import model.modifications.IModifyImage;
+import model.modifications.Mosaic;
 
 import java.awt.image.BufferedImage;
 
@@ -34,6 +36,12 @@ public interface MultiImage {
    * @param mod The modification to be applied
    */
   void applyToFirst(IModifyImage mod);
+
+  /**
+   * Applies the given Mosaic effect to the topmost, visible layer.
+   * @param m The Mosaic to apply
+   */
+  void applyMosaicToFirst(Mosaic m);
 
   /**
    * Sets the image in the topmost visible layer to the given Image.
@@ -79,4 +87,11 @@ public interface MultiImage {
    * Gets the bufferedImage so it can be used in view.
    */
   BufferedImage getFirstVisImg();
+
+  /**
+   * Downsizes all the images to match the new width and height.
+   * @param newWidth The new width of the images
+   * @param newHeight The new height of the images
+   */
+  void downsizeAll(int newWidth, int newHeight);
 }

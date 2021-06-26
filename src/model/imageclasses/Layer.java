@@ -1,6 +1,8 @@
 package model.imageclasses;
 
+import model.modifications.DownScale;
 import model.modifications.IModifyImage;
+import model.modifications.Mosaic;
 
 import java.awt.image.BufferedImage;
 
@@ -92,6 +94,14 @@ public class Layer {
     }
   }
 
+  /**
+   * Applies the given Mosaic to the image in this layer.
+   * @param m The given Mosaic
+   */
+  public void applyMosaic(Mosaic m) {
+    m.apply(this.img);
+  }
+
   @Override
   public String toString() {
     String s = "";
@@ -109,8 +119,21 @@ public class Layer {
     return s;
   }
 
+  /**
+   * Returns a BufferedImage object from this.img
+   * @return The BufferedImage object
+   */
   public BufferedImage getViewImg() {
     return this.img.getViewImage();
   }
 
+  /**
+   * Downsizes this.img to the dimensions provided
+   * @param newWidth The new width
+   * @param newHeight The new height
+   */
+  public void downSizeImg(int newWidth, int newHeight) {
+    DownScale d = new DownScale();
+    d.apply(this.img, newWidth, newHeight);
+  }
 }

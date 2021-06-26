@@ -56,6 +56,6 @@ public interface Image {
    */
   BufferedImage getViewImage();
 
-
+  void display();
 
 }
