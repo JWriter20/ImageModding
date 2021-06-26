@@ -134,6 +134,6 @@ public class Layer {
    */
   public void downSizeImg(int newWidth, int newHeight) {
     DownScale d = new DownScale();
-    d.apply(this.img, newWidth, newHeight);
+    this.img = d.apply(this.img, newWidth, newHeight);
   }
 }

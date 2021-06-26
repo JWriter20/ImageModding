@@ -22,4 +22,10 @@ public interface AdvancedView {
   void repaint(BufferedImage image);
 
 
+  /**
+   * If a layer is created in the script, it adds the GUI for it to the view.
+   */
+  void addLayer(String name);
+
+
 }

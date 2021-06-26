@@ -2,21 +2,7 @@ package view;
 
 import controller.Notifiable;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JTextArea;
-import javax.swing.JMenu;
-import javax.swing.JSplitPane;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JMenuBar;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +21,7 @@ import java.util.List;
  * A class used to view the program.
  */
 public class AdvancedImageView extends JFrame implements AdvancedView,
-    ActionListener, ItemListener {
+    ActionListener {
 
   private String currentLayerName;
   private final JMenuItem[] editItems = {
@@ -92,14 +78,18 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     //imagePanel.add();
     textPanel.add(scriptInputBox());
     textPanel.add(submitScript());
-    textPanel.add(titleSetter());
+    //textPanel.add(titleSetter());
 
-    setSize(900, 900);
+    setSize(800, 700);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
 
     pack();
 
+  }
+
+  public void addLayer(String name) {
+    layers.add(new JMenu(name));
   }
 
   private String getOpenPath(String desc, boolean filterOn, String... types)
@@ -116,7 +106,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     int resp = fileChooser.showOpenDialog(AdvancedImageView.this);
     if (resp == JFileChooser.APPROVE_OPTION) {
       File f = fileChooser.getSelectedFile();
-      return f.getAbsolutePath();
+      return f.getName();
     }
     throw new IllegalArgumentException("File not Valid");
   }
@@ -153,9 +143,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private String getSaveFolder() {
-    String s = getOpenPath("File save location", false);
-    s = s.substring(0, s.length() - 1);
-    return s.substring(s.lastIndexOf("/"));
+    return getOpenPath("File save location", false);
   }
 
   private void transform(String command) {
@@ -194,7 +182,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         transform("sepia");
         break;
       case "Grayscale":
-        transform("grayScale");
+        transform("grayscale");
         break;
       case "Sharpen":
         transform("sharp");
@@ -203,10 +191,28 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         transform("blur");
         break;
       case "Mosaic":
-        transform("mosaic");
+        JOptionPane.showMessageDialog(this,
+                "This function may take awhile to perform, it will update upon completion.");
+        String numSeeds = JOptionPane.showInputDialog("Enter the number of seeds");
+        if (numSeeds != null) {
+          transform("mosaic " + numSeeds);
+        }
+
         break;
       case "Shrink":
-        transform("shrink");
+        JTextField width = new JTextField(5);
+        JTextField height = new JTextField(5);
+        JPanel twoArgs = new JPanel();
+        twoArgs.add(new JLabel("width: "));
+        twoArgs.add(width);
+        twoArgs.add(new JLabel("height: "));
+        twoArgs.add(height);
+        int res = JOptionPane.showConfirmDialog(null, twoArgs,
+                "Enter your new desired width and height", JOptionPane.OK_CANCEL_OPTION);
+        if (res == JOptionPane.OK_OPTION) {
+          transform("shrink " + width.getText() + " " + height.getText());
+        }
+
         break;
       case "Save Layer as PPM":
         v.update("save " + saveFileName() + ".ppm");
@@ -237,11 +243,11 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       case "Load Layer":
         String loadedName = getOpenPath("JPG, PNG, and PPM images",
             true, "jpg", "png", "jpeg", "ppm");
-        v.update("load " + loadedName.substring(loadedName.lastIndexOf('/')));
+        v.update("load " + loadedName);
         break;
       case "Load multi-layer Image":
-        String loadedMulti = getOpenPath("Text file containing layered image data", true, "txt");
-        System.out.println(loadedMulti);
+        String loadedMulti = getOpenPath("Text file containing layered image data",
+                true, "txt");
         v.update("load " + loadedMulti);
         break;
       default:
@@ -268,10 +274,6 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     }
   }
 
-  @Override
-  public void itemStateChanged(ItemEvent e) {
-    //Dont need to override
-  }
 
   //Initializes the MenuBar field
   private void initMenuBarField(int menuIndex, JMenuItem[] items) {
@@ -344,7 +346,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     JScrollPane scrollPane = new JScrollPane(sTextArea);
     sTextArea.setLineWrap(true);
     //scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    scrollPane.setPreferredSize(new Dimension(900, 900));
+    scrollPane.setPreferredSize(new Dimension(800, 700));
     scrollPane.setBorder(BorderFactory.createTitledBorder("Input Script"));
     return scrollPane;
   }

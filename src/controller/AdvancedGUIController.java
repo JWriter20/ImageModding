@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.deploy.util.StringUtils;
 import model.LayeredModel;
 import model.imageclasses.Image;
 import model.imageclasses.LoadedImage;
@@ -26,7 +25,6 @@ import java.util.Scanner;
 public class AdvancedGUIController implements AdvancedController {
   private LayeredModel model;
   private AdvancedView view;
-  private Readable rd;
 
 
   /**
@@ -41,13 +39,6 @@ public class AdvancedGUIController implements AdvancedController {
   @Override
   public void start() {
     AdvancedImageView.setDefaultLookAndFeelDecorated(false);
-    BufferedImage example = null;
-    try {
-      example = ImageIO.read(new File("./Pictures/face.png"));
-    } catch (IOException e) {
-      throw new IllegalArgumentException();
-    }
-
 
     try {
       // Set cross-platform Java L&F (also called "Metal")
@@ -165,12 +156,13 @@ public class AdvancedGUIController implements AdvancedController {
    */
   public void parseCommand(String command) throws IllegalArgumentException {
     String[] commandParts = command.split(" ");
-    switch (commandParts[0]) {
+    switch (commandParts[0].toLowerCase()) {
       case "create": {
         if (commandParts.length != 3
             || !commandParts[1].equalsIgnoreCase("layer")) {
           throw new IllegalArgumentException("Invalid \"create\" parameters");
         } else {
+          this.view.addLayer(commandParts[2]);
           this.model.addLayer(commandParts[2]);
         }
         break;
