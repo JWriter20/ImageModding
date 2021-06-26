@@ -1,8 +1,32 @@
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+
+import controller.AdvancedController;
+import controller.AdvancedGUIController;
+import controller.ImageModController;
+import controller.LayeredImageModController;
+import model.LayeredImageModel;
+import model.LayeredModel;
+import model.imageclasses.CustomCheckerBoard;
+import model.imageclasses.Image;
+import model.imageclasses.PPMImage;
+import model.imageclasses.RainbowImage;
+import model.modifications.Sharpen;
+import model.modifications.Greyscale;
+import model.modifications.Sepia;
+import model.modifications.Blurry;
+import model.modifications.IModifyImage;
 import view.AdvancedImageView;
+import view.AdvancedView;
+import view.Display;
+import view.ImageView;
+
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -18,20 +42,12 @@ public class ImageMainMethod {
    * @param args Standard main argument.
    */
   public static void main(String[] args) {
-
     AdvancedImageView.setDefaultLookAndFeelDecorated(false);
-    BufferedImage example = null;
-    try {
-      example = ImageIO.read(new File("./Pictures/face.png"));
-    } catch (IOException e) {
-      throw new IllegalArgumentException();
-    }
 
-    AdvancedImageView frame = new AdvancedImageView(example);
+    LayeredModel model = new LayeredImageModel();
+    AdvancedController controller = new AdvancedGUIController(model);
 
-    frame.setSize(500, 750);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
+    controller.go();
 
     try {
       // Set cross-platform Java L&F (also called "Metal")
@@ -56,6 +72,7 @@ public class ImageMainMethod {
       // handle exception
     } catch (IllegalAccessException e) {
       // handle exception
+    } catch (Exception e) {
     }
 
   }
@@ -141,5 +158,4 @@ public class ImageMainMethod {
     }
   }
     */
-
 
