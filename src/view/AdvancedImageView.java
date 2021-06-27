@@ -278,7 +278,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
       case "Load multi-layer Image":
         String loadedMulti = getOpenPath(3, "Text file containing layered image data",
                 true, "txt");
-        v.update("load " + loadedMulti);
+        v.update("load-multi " + loadedMulti);
         break;
       default:
         String[] command = e.getActionCommand().split(" ");

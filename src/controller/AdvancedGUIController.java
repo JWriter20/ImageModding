@@ -94,7 +94,10 @@ public class AdvancedGUIController implements AdvancedController {
 
     while (sc.hasNextLine()) {
       String line = sc.nextLine();
-      String name = line.substring(line.lastIndexOf("/") + 1, line.lastIndexOf("."));
+      System.out.println(line);
+      String name = line.split("/")[1];
+      System.out.println(name);
+      System.out.println(line);
       this.model.addLayer(name);
       this.model.bringToFront(name);
       this.model.setFirstLayerImage(loadImage(line));
@@ -183,6 +186,7 @@ public class AdvancedGUIController implements AdvancedController {
       }
 
       case "load-multi": {
+        System.out.println(commandParts[1]);
         loadMultiLayeredImage("res/" + commandParts[1]);
         this.view.repaint(this.model.getViewImage());
         break;
