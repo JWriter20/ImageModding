@@ -1,6 +1,5 @@
 package model.imageclasses;
 
-import model.modifications.DownScale;
 import model.modifications.IModifyImage;
 import model.modifications.Mosaic;
 

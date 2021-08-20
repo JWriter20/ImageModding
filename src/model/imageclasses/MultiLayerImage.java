@@ -3,7 +3,6 @@ package model.imageclasses;
 import model.modifications.IModifyImage;
 import model.modifications.Mosaic;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;

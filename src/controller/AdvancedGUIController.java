@@ -8,15 +8,10 @@ import model.imageclasses.MultiLayerImage;
 import model.imageclasses.ImageTypes;
 import view.AdvancedImageView;
 import view.AdvancedView;
-
-import javax.imageio.ImageIO;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**

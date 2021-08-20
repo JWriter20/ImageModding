@@ -3,12 +3,25 @@ package view;
 import controller.Notifiable;
 import model.imageclasses.LoadedImage;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -76,7 +89,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
     setJMenuBar(menuBar());
 
-    setImage(new LoadedImage("./Pictures/default.png").getViewImage());
+    setImage(new LoadedImage("./defaultMessage.png").getViewImage());
     textPanel.add(scriptInputBox());
     textPanel.add(submitScript());
     //textPanel.add(titleSetter());
@@ -89,6 +102,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
 
   }
 
+  /**
+   * Adds a Layer to the view.
+   * @param name The name of the layer
+   */
   public void addLayer(String name) {
     layers.add(new JMenu(name));
     getJMenuBar().setVisible(false);
@@ -97,6 +114,7 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
     getJMenuBar().setVisible(true);
 
   }
+
   //retType Values :
   // 1 - name of file
   // 2 - full path
@@ -124,6 +142,9 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
         case 3:
           return f.getAbsolutePath().substring(
                   f.getAbsolutePath().indexOf(f.getParentFile().getName()));
+        default: {
+          //should not get here
+        }
       }
       return f.getName();
     }
@@ -162,7 +183,8 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private String getSaveFolder() {
-    return getOpenPath(1, "File save location", false);
+    return getOpenPath(1,
+        "File save location", false);
   }
 
   private void transform(String command) {
@@ -174,8 +196,10 @@ public class AdvancedImageView extends JFrame implements AdvancedView,
   }
 
   private void showCreateLayerDialog() {
-    JOptionPane.showMessageDialog(this, "You must create a layer first before you can edit" +
-        " click on edit -> Create Layer. To change the current layer click on it in Layer Options.");
+    JOptionPane.showMessageDialog(this, "You must create a " +
+        "layer first before you can edit" +
+        " click on edit -> Create Layer. To change the current layer click on it in " +
+        "Layer Options.");
   }
 
   @Override

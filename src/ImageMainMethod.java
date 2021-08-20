@@ -1,6 +1,15 @@
-import model.imageclasses.Image;
-import model.imageclasses.PPMImage;
-import model.imageclasses.LoadedImage;
+import controller.AdvancedController;
+import controller.AdvancedGUIController;
+import controller.ImageModController;
+import controller.LayeredImageModController;
+import model.LayeredImageModel;
+import model.LayeredModel;
+import view.AdvancedImageView;
+import view.Display;
+import view.ImageView;
+
+import java.io.InputStreamReader;
+import java.io.StringReader;
 
 
 /**
@@ -13,35 +22,49 @@ public class ImageMainMethod {
    * @param args Standard main argument.
    */
   public static void main(String[] args) {
+    LayeredModel model = new LayeredImageModel();
 
-    Image koala = new PPMImage("./Pictures/Koala.ppm");
-    Image face = new LoadedImage("./Pictures/face.png");
+    if (args[0].equalsIgnoreCase("-script")) {
+      Readable rd = new StringReader("c\n" + args[1]);
+      ImageView view = new Display(System.out);
+      ImageModController controller = new LayeredImageModController(model, view, rd);
+      controller.start();
+
+    } else if (args[0].equals("-text")) {
+      ImageView view = new Display(System.out);
+      ImageModController controller = new LayeredImageModController(model, view,
+              new InputStreamReader(System.in));
+      controller.start();
+    } else if (args[0].equals("-interactive")) {
+      AdvancedImageView.setDefaultLookAndFeelDecorated(false);
+      AdvancedController controller = new AdvancedGUIController(model);
+      controller.start();
+    } else {
+      throw new IllegalArgumentException("Invalid command line arguments");
+    }
+  }
+}
 
 
-    /*IModifyImage mosaic = new Mosaic(5000);
-    skyline.display();
-    mosaic.apply(skyline);
-    skyline.display();
-    skyline.exportImageAs("skyline_mosaic_5000Seeds", ImageTypes.PNG);*/
-    /*
-    face.display();
-    mosaic.apply(face);
-    face.display();*/
     /*
     LayeredModel model = new LayeredImageModel();
     ImageView view = new Display(System.out);
+    //Tests for the controller
     ImageModController controller = new LayeredImageModController(model, view,
             new InputStreamReader(System.in));
+    String input =
+            "m\n" +
+            "create layer first\n" +
+            "current first\n" +
+            "load face.png\n" +
+            "blur\n" +
+            "save face-blur.jpeg\n" +
+            "quit\n";
 
-
-    controller.go();*/
-    //controller2.go();
-
-    /*
     ImageModController readableController =
             new LayeredImageModController(model, view, new StringReader(input));
     controller.go();
-    */
+
     //readableController.go();
 
     //String input2 =
@@ -100,6 +123,7 @@ public class ImageMainMethod {
     graph.exportImageAsPPM("GreyscaleGraph");
     snail.exportImageAsPPM("GreyscaleSnail");
 
-    */
+    }
   }
-}
+    */
+

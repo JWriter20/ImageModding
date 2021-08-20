@@ -5,7 +5,11 @@ import model.imageclasses.MultiImage;
 import model.imageclasses.MultiLayerImage;
 import model.imageclasses.ImageTypes;
 import model.imageclasses.Layer;
-import model.modifications.*;
+import model.modifications.Blurry;
+import model.modifications.Greyscale;
+import model.modifications.Mosaic;
+import model.modifications.Sepia;
+import model.modifications.Sharpen;
 
 import java.awt.image.BufferedImage;
 
