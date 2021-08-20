@@ -1,2 +1,0 @@
-res/changedToGreyscale/second.JPG
-res/changedToGreyscale/first.JPG

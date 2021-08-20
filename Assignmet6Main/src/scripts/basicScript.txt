@@ -1,5 +1,0 @@
-create layer first
-current first
-load face.png
-grayscale
-save face-gray.jpeg
