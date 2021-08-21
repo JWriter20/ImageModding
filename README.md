@@ -1,4 +1,6 @@
-# ImageModing
+# ImageModding
+
+A rudimentary Photoshop-like project that allows for the creation of layers, the importing and exporting of images, and the modification of those images through filters using low-level data transformation. (shrink, opacification, blur, sharpen, greyscale, etc).
 
 ## Image Citations:
 * “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/snail.ascii.ppm. 
