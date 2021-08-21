@@ -2,6 +2,8 @@
 
 A rudimentary Photoshop-like project that allows for the creation of layers, the importing and exporting of images, and the modification of those images through filters using low-level data transformation. (shrink, opacification, blur, sharpen, greyscale, etc).
 
+* Uses industry standard Object Oriented Design principles including but not limited to the Model-Controller-View, Factory methods, Open Close Principle, and Adapters
+
 ## Image Citations:
 * “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/snail.ascii.ppm. 
 * “PPMA Files Portable Pixel Map (ASCII).” PPMA Files, 22 July 2011, people.sc.fsu.edu/~jburkardt/data/ppma/sines.ascii.ppm. 
